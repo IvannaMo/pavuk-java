@@ -1,0 +1,25 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Gilroy SemiBold";
+    color: white;
+    background-color: #3C3D42;
+}
+
+.footer-copyright {
+    width: fit-content;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.footer-content-divider {
+    height: 20px;
+    width: 2px;
+    background-color: white;
+    border-radius: 10px;
+}

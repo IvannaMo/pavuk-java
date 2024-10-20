@@ -1,0 +1,14 @@
+.about-us-section {
+    position: relative;
+    width: 100%;
+}
+  
+.about-us-heading {
+    font-family: "Gilroy Bold";
+    color: #3C3D42;
+}
+
+.about-us-paragraph {
+    font-family: "Gilroy SemiBold";
+    color: #A5A7AA;
+}
