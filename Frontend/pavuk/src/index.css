@@ -9,10 +9,15 @@
   box-sizing: border-box;
 }
 
+html, body, #root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
 button {
   cursor: pointer;
 }
-
 
 
 @font-face {

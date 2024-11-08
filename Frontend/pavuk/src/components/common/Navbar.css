@@ -1,11 +1,12 @@
 .navbar-container {
-    position: absolute;
+    position: fixed;
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    background-color: white;
     font-family: "Gilroy Bold";
-    color: white;
+    color: #3C3D42;
     z-index: 100;
 }
 
@@ -17,12 +18,12 @@
 }
 
 .navbar-link {
-    color: #dfe8fb;
+    color: #7A7D7F;
     transition: 0.2s;
 }
 
 .navbar-link:hover {
-    color: white;
+    color: #3C3D42;
 }
 
 .navbar-list {
@@ -37,7 +38,6 @@
     background-color: #3C3D42;
     border-radius: 14px;
     font-family: "Gilroy Bold";
-    color: #3C3D42;
     color: white;
     cursor: pointer;
     transition: 0.2s;
@@ -46,4 +46,12 @@
 .navbar-list-button:hover {
     background-color: #4D4E53;
     color: white;
+}
+
+.navbar-list-order-button {
+    background-color: #d15050;
+}
+
+.navbar-list-order-button:hover {
+    background-color: #de5f5f;
 }

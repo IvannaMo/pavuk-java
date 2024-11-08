@@ -1,0 +1,56 @@
+.sign-up-form-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 84px;
+    background-color: #F0F0F1;
+}
+
+.sign-up-form {
+    position: relative;
+    background-color: white;
+    border-radius: 30px;
+}
+
+.sign-up-form-heading {
+    font-family: "Gilroy Bold";
+    color: #3C3D42;
+}
+
+.sign-up-form-label {
+    display: block;
+    font-family: "Gilroy SemiBold";
+    color: #7A7D7F;
+}
+
+.sign-up-form-field {
+    display: block;
+    width: 100%;
+    background-color: #F0F0F1;
+    border-radius: 9px;
+    font-family: "Gilroy SemiBold";
+    color: #4D4E53;
+    outline: none;
+}
+
+.sign-up-form-field-error {
+    font-family: "Gilroy SemiBold";
+    color: #d15050;
+}
+
+.sign-up-form-button, .sign-up-form-button-disabled {
+    display: block;
+    background-color: #3C3D42;
+    border-radius: 14px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sign-up-form-button:hover {
+    background-color: #4D4E53;
+}
+
+.sign-up-form-button-disabled {
+    color: #BCBEC1;
+}

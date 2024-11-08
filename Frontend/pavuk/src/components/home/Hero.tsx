@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import seamstressSpiderCover from "../../assets/images/seamstress-spider.jpg";
 import "./Hero.css";
 
+
 function Hero() {
   return (
     <>

@@ -1,5 +1,6 @@
 import "./AboutUs.css";
 
+
 function AboutUs() {
   return (
     <section className="about-us-section px-24 pt-11 pb-14">
