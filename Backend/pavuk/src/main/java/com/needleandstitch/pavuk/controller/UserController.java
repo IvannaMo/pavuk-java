@@ -1,5 +1,6 @@
 package com.needleandstitch.pavuk.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.needleandstitch.pavuk.model.Role;
 import com.needleandstitch.pavuk.model.User;
 import com.needleandstitch.pavuk.service.UserService;
 
@@ -43,14 +45,23 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<Void> createUser(@RequestBody User user) {
-        userService.createUser(user.getLogin()); 
+        userService.createUser(
+        	user.getFirstName(),
+        	user.getLastName(),
+        	user.getEmail(),
+        	user.getPhone(),
+        	user.getPassword(),
+        	user.getDateOfBirth(),
+        	user.getNewsletterSubscription(),
+        	user.getRole()
+        ); 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         try {
-            userService.updateUser(id, userDetails.getLogin());
+            userService.updateUser(id, userDetails.getEmail());
             return ResponseEntity.ok().build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.needleandstitch.pavuk.model.Role;
 import com.needleandstitch.pavuk.model.User;
 import com.needleandstitch.pavuk.repository.UserRepository;
 
@@ -34,16 +36,15 @@ public class UserService {
     }
 
     @Transactional
-    public void createUser(String login) {
-        User newUser = new User();
-        newUser.setLogin(login);
+    public void createUser(String firstName, String lastName, String email, String phone, String password, LocalDate dateOfBirth, Boolean newsletterSubscription, Role role) {
+        User newUser = new User(firstName, lastName, email, phone, password, dateOfBirth, newsletterSubscription, role);
         userRepository.save(newUser);
     }
 
     @Transactional
-    public void updateUser(Long id, String login) {
+    public void updateUser(Long id, String email) {
         User user = findById(id);
-        user.setLogin(login);
+        user.setEmail(email);
         userRepository.save(user);
     }
 
