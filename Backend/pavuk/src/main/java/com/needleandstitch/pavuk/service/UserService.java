@@ -16,6 +16,7 @@ import com.needleandstitch.pavuk.model.Role;
 import com.needleandstitch.pavuk.model.User;
 import com.needleandstitch.pavuk.repository.UserRepository;
 
+
 @Service
 public class UserService {
     @Autowired
@@ -36,8 +37,8 @@ public class UserService {
     }
 
     @Transactional
-    public void createUser(String firstName, String lastName, String email, String phone, String password, LocalDate dateOfBirth, Boolean newsletterSubscription, Role role) {
-        User newUser = new User(firstName, lastName, email, phone, password, dateOfBirth, newsletterSubscription, role);
+    public void createUser(String firstName, String lastName, LocalDate dateOfBirth, String phone, String email, Boolean newsletterSubscription, String password, Role role) {
+        User newUser = new User(firstName, lastName, dateOfBirth, phone, email, newsletterSubscription, password, role);
         userRepository.save(newUser);
     }
 

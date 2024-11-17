@@ -73,14 +73,29 @@ public class User {
 	
 	public User() {}
 	
-	public User(String firstName, String lastName, String email, String phone, String password, LocalDate dateOfBirth, Boolean newsletterSubscription, Role role) {
+	public User(String firstName, String lastName, LocalDate dateOfBirth, String phone, String email, Boolean newsletterSubscription, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.password = password;
         this.dateOfBirth = dateOfBirth;
+        this.phone = phone;
+        this.email = email;
         this.newsletterSubscription = newsletterSubscription;
+        this.password = password;
+        this.role = new Role();
+        this.tailor = null;
+        this.status = Status.OFFLINE;
+        this.registrationDate = LocalDateTime.now();
+        this.onlineDate = null;
+    }
+	
+	public User(String firstName, String lastName, LocalDate dateOfBirth, String phone, String email, Boolean newsletterSubscription, String password, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.phone = phone;
+        this.email = email;
+        this.newsletterSubscription = newsletterSubscription;
+        this.password = password;
         this.role = role;
         this.tailor = null;
         this.status = Status.OFFLINE;

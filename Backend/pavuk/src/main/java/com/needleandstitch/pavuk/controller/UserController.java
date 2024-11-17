@@ -1,6 +1,5 @@
 package com.needleandstitch.pavuk.controller;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +16,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.needleandstitch.pavuk.model.Role;
 import com.needleandstitch.pavuk.model.User;
+import com.needleandstitch.pavuk.service.RoleService;
 import com.needleandstitch.pavuk.service.UserService;
 
 import jakarta.persistence.EntityNotFoundException;
+
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
     @Autowired
     private UserService userService;
+    
+    @Autowired
+    private RoleService roleService;
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
@@ -43,17 +47,19 @@ public class UserController {
         }
     }
 
-    @PostMapping
+    @PostMapping("/sign-up")
     public ResponseEntity<Void> createUser(@RequestBody User user) {
+    	Role defaultRole = roleService.findByName("User");
+    	
         userService.createUser(
         	user.getFirstName(),
         	user.getLastName(),
-        	user.getEmail(),
-        	user.getPhone(),
-        	user.getPassword(),
         	user.getDateOfBirth(),
+        	user.getPhone(),
+        	user.getEmail(),
         	user.getNewsletterSubscription(),
-        	user.getRole()
+        	user.getPassword(),
+        	defaultRole
         ); 
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
