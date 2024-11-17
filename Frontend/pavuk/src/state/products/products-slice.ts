@@ -13,7 +13,7 @@ export const getProducts = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        import.meta.env.VITE_PATH_TO_SERVER + "products"
+        import.meta.env.SERVER_PATH + "products"
       );
       console.log(res.data);
       return res.data as ProductType[];
@@ -29,7 +29,7 @@ export const createProduct = createAsyncThunk(
   async (data: ProductType, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        import.meta.env.VITE_PATH_TO_SERVER + "products",
+        import.meta.env.SERVER_PATH + "products",
         data
       );
 
@@ -48,7 +48,7 @@ export const editProduct = createAsyncThunk(
   async (editedProduct: ProductType, { rejectWithValue }) => {
       try {
         const res = await axios.put(
-            `${import.meta.env.VITE_PATH_TO_SERVER}products/${editedProduct.id}`, 
+            `${import.meta.env.SERVER_PATH}products/${editedProduct.id}`, 
             editedProduct
         );
         return res.data as ProductType;
@@ -63,7 +63,7 @@ export const removeProduct = createAsyncThunk(
   "products/removeProduct",
   async (productId: string, { rejectWithValue }) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_PATH_TO_SERVER}products/${productId}`);
+      await axios.delete(`${import.meta.env.SERVER_PATH}products/${productId}`);
       return productId; 
     } 
     catch (error: any) {

@@ -4,20 +4,20 @@ import * as yup from "yup";
 const passwordMinValue = 8;
 
 const yupSignUpSchema = yup.object({
-  name: yup
+  firstName: yup
     .string()
     .matches(/^[A-Za-zА-Яа-яЁёҐґЄєІіЇї]+$/, "Ім'я повинне містити тільки букви")
     .required("Введіть ім'я"),
-  surname: yup
+  lastName: yup
     .string()
     .matches(/^[A-Za-zА-Яа-яЁёҐґЄєІіЇї]+$/, "Прізвище повинне містити тільки букви")
     .required("Введіть прізвище"),
-  birthdate: yup
+  dateOfBirth: yup
     .date()
     .nullable()
     .required("Введіть дату народження")
     .max(new Date(), "Введіть коректну дату народження"),
-  phoneNumber: yup
+  phone: yup
     .string()
     .matches(/^(380\d{9}|\+380\d{9}|\d{10}|\+\d{10})$/, "Введіть коректний номер телефону")
     .required("Введіть номер телефону"),

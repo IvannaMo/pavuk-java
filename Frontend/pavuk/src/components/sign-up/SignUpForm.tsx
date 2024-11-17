@@ -29,7 +29,9 @@ function SignUpForm() {
   }, []);
 
   const signUpHandler = async (data: any) => {
-    const resultAction = await dispatch(signUpUser(data));
+    const { confirmPassword, ...userData } = data;
+    
+    const resultAction = await dispatch(signUpUser(userData));
     if (signUpUser.fulfilled.match(resultAction)) {
       navigate("/user-profile");
     }
@@ -39,12 +41,12 @@ function SignUpForm() {
     <section className="sign-up-form-section pt-11 pb-14">
       <Formik 
         initialValues={{
-          name: "",
-          surname: "",
-          birthdate: null,
-          phoneNumber: "",
+          firstName: "",
+          lastName: "",
+          dateOfBirth: null,
+          phone: "",
           email: "",
-          emailSubscription: false,
+          newsletterSubscription: false,
           password: "",
           confirmPassword: "",
         }}
@@ -64,60 +66,60 @@ function SignUpForm() {
               {signUpError && <p className="sign-up-form-field-error mt-3 mb-2 text-md">{signUpError}</p>}
 
               <div className="w-full">
-                <label className="sign-up-form-label text-xl" htmlFor="name">Ім'я:</label>
+                <label className="sign-up-form-label text-xl" htmlFor="firstName">Ім'я:</label>
                 <Field
                   className="sign-up-form-field mt-2 px-3 py-1 min-w-96 text-lg"
-                  name="name"
+                  name="firstName"
                   type="text"
-                  id="name"
+                  id="firstName"
                 />
                 <ErrorMessage
                   className="sign-up-form-field-error mt-1 text-md"
-                  name="name"
+                  name="firstName"
                   component="div"
                 />
               </div>
 
               <div className="mt-4 w-full">
-                <label className="sign-up-form-label text-xl" htmlFor="surname">Прізвище:</label>
+                <label className="sign-up-form-label text-xl" htmlFor="lastName">Прізвище:</label>
                 <Field
                   className="sign-up-form-field mt-2 px-3 py-1 min-w-96 text-lg"
-                  name="surname"
+                  name="lastName"
                   type="text"
-                  id="surname"
+                  id="lastName"
                 />
                 <ErrorMessage
                   className="sign-up-form-field-error mt-1 text-md"
-                  name="surname"
+                  name="lastName"
                   component="div"
                 />
               </div>
 
               <div className="mt-4 w-full">
-                <label className="sign-up-form-label text-xl" htmlFor="birthdate">Дата народження:</label>
+                <label className="sign-up-form-label text-xl" htmlFor="dateOfBirth">Дата народження:</label>
                 <DatePicker
                   className="sign-up-form-field mt-2 px-3 py-1 w-full text-lg"
-                  name="birthdate"
-                  id="birthdate"
+                  name="dateOfBirth"
+                  id="dateOfBirth"
                 />
                 <ErrorMessage
                   className="sign-up-form-field-error mt-1 text-md"
-                  name="birthdate"
+                  name="dateOfBirth"
                   component="div"
                 />
               </div>
 
               <div className="mt-4 w-full">
-                <label className="sign-up-form-label text-xl" htmlFor="phoneNumber">Телефон:</label>
+                <label className="sign-up-form-label text-xl" htmlFor="phone">Телефон:</label>
                 <Field
                   className="sign-up-form-field mt-2 px-3 py-1 min-w-96 text-lg"
-                  name="phoneNumber"
+                  name="phone"
                   type="text"
-                  id="phoneNumber"
+                  id="phone"
                 />
                 <ErrorMessage
                   className="sign-up-form-field-error mt-1 text-md"
-                  name="phoneNumber"
+                  name="phone"
                   component="div"
                 />
               </div>
@@ -138,7 +140,7 @@ function SignUpForm() {
               </div>
 
               <div className="flex gap-2 mt-3 w-full">
-                <Checkbox name="emailSubscription"/>
+                <Checkbox name="newsletterSubscription"/>
                 <label className="sign-up-form-label text-md">
                   Отримувати повідомлення про новинки, знижки, акції
                 </label>

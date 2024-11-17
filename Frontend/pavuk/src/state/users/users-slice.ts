@@ -17,7 +17,7 @@ export const getUsers = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        import.meta.env.VITE_PATH_TO_SERVER + "users"
+        import.meta.env.SERVER_PATH + "users"
       );
       console.log(res.data);
 
@@ -34,7 +34,7 @@ export const signInUser = createAsyncThunk(
   async (data: UserType, { rejectWithValue }) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_PATH_TO_SERVER}users?email=${data.email}&password=${data.password}`
+        `${import.meta.env.SERVER_PATH}users?email=${data.email}&password=${data.password}`
       );
 
       if (!response.data[0]) {
@@ -53,7 +53,7 @@ export const signUpUser = createAsyncThunk(
   async (data: UserType, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        import.meta.env.VITE_PATH_TO_SERVER + "users",
+        `${import.meta.env.SERVER_PATH}users/sign-up`,
         data
       );
 
@@ -72,7 +72,7 @@ export const editUser = createAsyncThunk(
   async (editedUser: UserType, { rejectWithValue }) => {
     try {
       const res = await axios.put(
-        `${import.meta.env.VITE_PATH_TO_SERVER}users/${editedUser.id}`, 
+        `${import.meta.env.SERVER_PATH}users/${editedUser.id}`, 
         editedUser
       );
       return res.data as UserType;
@@ -87,7 +87,7 @@ export const removeUser = createAsyncThunk(
   "users/removeUser",
   async (userId: string, { rejectWithValue }) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_PATH_TO_SERVER}users/${userId}`);
+      await axios.delete(`${import.meta.env.SERVER_PATH}users/${userId}`);
       return userId; 
     } 
     catch (error: any) {

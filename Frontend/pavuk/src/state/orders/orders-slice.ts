@@ -13,7 +13,7 @@ export const getOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        import.meta.env.VITE_PATH_TO_SERVER + "orders"
+        import.meta.env.SERVER_PATH + "orders"
       );
       console.log(res.data);
 
@@ -30,7 +30,7 @@ export const createOrder = createAsyncThunk(
   async (data: OrderType, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        import.meta.env.VITE_PATH_TO_SERVER + "orders",
+        import.meta.env.SERVER_PATH + "orders",
         data
       );
 
@@ -49,7 +49,7 @@ export const editOrder = createAsyncThunk(
   async (editedOrder: OrderType, { rejectWithValue }) => {
       try {
         const res = await axios.put(
-          `${import.meta.env.VITE_PATH_TO_SERVER}orders/${editedOrder.id}`, 
+          `${import.meta.env.SERVER_PATH}orders/${editedOrder.id}`, 
           editedOrder
         );
         return res.data as OrderType;
@@ -64,7 +64,7 @@ export const removeOrder = createAsyncThunk(
   "orders/removeOrder",
   async (orderId: string, { rejectWithValue }) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_PATH_TO_SERVER}orders/${orderId}`);
+      await axios.delete(`${import.meta.env.SERVER_PATH}orders/${orderId}`);
       return orderId; 
     } 
     catch (error: any) {
