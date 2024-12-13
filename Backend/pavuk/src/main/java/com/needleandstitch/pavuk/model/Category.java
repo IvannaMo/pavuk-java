@@ -11,8 +11,8 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "categories")
+public class Category {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,13 +20,13 @@ public class Role {
 	@Column(length = 50, nullable = false, unique = true)
 	private String name;
 	
-	@OneToMany(mappedBy = "role")
-    private Set<User> users;
+	@OneToMany(mappedBy = "category")
+    private Set<ClothingItem> clothingItems;
 	
 	
-	public Role() {}
+	public Category() {}
 	
-	public Role(String name) {
+	public Category(String name) {
 		this.name = name;
 	}
 	

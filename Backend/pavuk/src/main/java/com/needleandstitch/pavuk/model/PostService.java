@@ -11,22 +11,22 @@ import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "post_services")
+public class PostService {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
 	@Column(length = 50, nullable = false, unique = true)
 	private String name;
+
+	@OneToMany(mappedBy = "postService")
+    private Set<ShippingInfo> shippingInfo;
 	
-	@OneToMany(mappedBy = "role")
-    private Set<User> users;
 	
+	public PostService() {}
 	
-	public Role() {}
-	
-	public Role(String name) {
+	public PostService(String name) {
 		this.name = name;
 	}
 	

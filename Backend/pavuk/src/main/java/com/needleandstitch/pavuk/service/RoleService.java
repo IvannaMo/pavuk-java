@@ -3,10 +3,8 @@ package com.needleandstitch.pavuk.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.needleandstitch.pavuk.model.Role;
 import com.needleandstitch.pavuk.repository.RoleRepository;
-
 import jakarta.persistence.EntityNotFoundException;
 
 

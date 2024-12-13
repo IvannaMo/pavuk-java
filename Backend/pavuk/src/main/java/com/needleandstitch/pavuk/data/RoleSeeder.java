@@ -3,7 +3,6 @@ package com.needleandstitch.pavuk.data;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
 import com.needleandstitch.pavuk.model.Role;
 import com.needleandstitch.pavuk.repository.RoleRepository;
 
@@ -19,13 +18,13 @@ public class RoleSeeder implements CommandLineRunner {
     
     @Override
     public void run(String... args) throws Exception {
-    	if (roleRepository.findByName("Admin") == null) {
+    	if (roleRepository.findByName("Admin").isEmpty()) {
     		roleRepository.save(new Role("Admin"));
     	}
-    	if (roleRepository.findByName("Moderator") == null) {
+    	if (roleRepository.findByName("Moderator").isEmpty()) {
     		roleRepository.save(new Role("Moderator"));
     	}
-    	if (roleRepository.findByName("User") == null) {
+    	if (roleRepository.findByName("User").isEmpty()) {
     		roleRepository.save(new Role("User"));
     	}
     }

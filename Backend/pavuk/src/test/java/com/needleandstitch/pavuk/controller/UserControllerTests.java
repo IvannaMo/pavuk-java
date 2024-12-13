@@ -15,6 +15,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletResponse;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -83,7 +85,7 @@ class UserControllerTest {
     void testCreateUser() {
         when(roleService.findByName("User")).thenReturn(null);
 
-        ResponseEntity<Void> response = userController.createUser(user);
+        ResponseEntity<Void> response = userController.createUser(user, mock(HttpServletResponse.class));
 
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }

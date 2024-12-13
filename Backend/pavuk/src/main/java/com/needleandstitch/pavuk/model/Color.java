@@ -6,28 +6,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "colors")
+public class Color {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 	
 	@Column(length = 50, nullable = false, unique = true)
-	private String name;
+	private String hex;
 	
-	@OneToMany(mappedBy = "role")
-    private Set<User> users;
+	@ManyToMany(mappedBy = "colors")
+	private Set<Fabric> fabrics;
 	
 	
-	public Role() {}
+	public Color() {}
 	
-	public Role(String name) {
-		this.name = name;
+	public Color(String hex) {
+		this.hex = hex;
 	}
 	
 	
@@ -39,11 +39,11 @@ public class Role {
 		this.id = id;
 	}
 	
-	public String getName() {
-		return name;
+	public String getHex() {
+		return hex;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setHex(String hex) {
+		this.hex = hex;
 	}
 }

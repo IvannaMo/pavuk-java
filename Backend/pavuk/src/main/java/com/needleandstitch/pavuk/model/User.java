@@ -2,9 +2,7 @@ package com.needleandstitch.pavuk.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import org.hibernate.type.TrueFalseConverter;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -56,7 +54,7 @@ public class User {
     private Tailor tailor;
 	
 	@Enumerated(EnumType.STRING)
-	@Column(length = 20, columnDefinition = "VARCHAR(20) DEFAULT 'OFFLINE'")
+	@Column(length = 20, columnDefinition = "VARCHAR(20) DEFAULT 'OFFLINE'", nullable = false)
 	private Status status;
 	
 	@Column(name = "registration_date", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", nullable = false)

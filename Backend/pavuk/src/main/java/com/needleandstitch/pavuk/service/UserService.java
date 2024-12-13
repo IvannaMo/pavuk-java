@@ -3,15 +3,13 @@ package com.needleandstitch.pavuk.service;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
-
 import java.time.LocalDate;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.needleandstitch.pavuk.model.Role;
 import com.needleandstitch.pavuk.model.User;
 import com.needleandstitch.pavuk.repository.UserRepository;
@@ -22,6 +20,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+    
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -30,6 +31,12 @@ public class UserService {
         return userRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
     }
+    
+    @Transactional(readOnly = true)
+    public User findByEmail(String email) {
+    	return userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
+    }
 
     @Transactional(readOnly = true)
     public List<User> findAll() {
@@ -37,11 +44,24 @@ public class UserService {
     }
 
     @Transactional
-    public void createUser(String firstName, String lastName, LocalDate dateOfBirth, String phone, String email, Boolean newsletterSubscription, String password, Role role) {
-        User newUser = new User(firstName, lastName, dateOfBirth, phone, email, newsletterSubscription, password, role);
+    public User createUser(String firstName, String lastName, LocalDate dateOfBirth, String phone, String email, Boolean newsletterSubscription, String password, Role role) {
+        User newUser = new User(firstName, lastName, dateOfBirth, phone, email, newsletterSubscription, passwordEncoder.encode(password), role);
         userRepository.save(newUser);
+        
+        return newUser;
     }
 
+    @Transactional(readOnly = true)
+    public User signInUser(String email, String password) {
+    	User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
+        if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new IllegalArgumentException("Invalid credentials");
+        }
+
+        return user;
+    }
+    
     @Transactional
     public void updateUser(Long id, String email) {
         User user = findById(id);
