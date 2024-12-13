@@ -42,7 +42,7 @@ public class SecurityConfig {
 			.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests(
 					authorizeRequests -> authorizeRequests
-					.requestMatchers("/users/current", "/users/sign-in", "/users/sign-up", "/clothing-items").permitAll()
+					.requestMatchers("/users/current", "/users/sign-in", "/users/sign-up", "/clothing-items", "/images/**").permitAll()
 					.anyRequest().authenticated())
 			.addFilterBefore(jwtFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);;
 		

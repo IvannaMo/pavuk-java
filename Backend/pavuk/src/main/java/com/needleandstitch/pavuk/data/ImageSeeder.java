@@ -18,15 +18,15 @@ public class ImageSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-    	String tShirtUrl = "/images/basic-clothing/t-shirt.svg";
+    	String tShirtUrl = "images/basic-clothing/t-shirt.svg";
     	
         if (imageRepository.findByName("t-shirt").isEmpty()) {
         	Image image = new Image("t-shirt", tShirtUrl, true);
             imageRepository.save(image);
         }
         
-        String fabric1Url = "/images/fabrics/fabric1.jpg";
-        String fabric2Url = "/images/fabrics/fabric2.jpg";
+        String fabric1Url = "images/fabrics/fabric1.jpg";
+        String fabric2Url = "images/fabrics/fabric2.jpg";
     	
         if (imageRepository.findByName("fabric1").isEmpty()) {
         	Image image = new Image("fabric1", fabric1Url, true);
