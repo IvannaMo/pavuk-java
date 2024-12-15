@@ -23,26 +23,71 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-
+/**
+ * REST controller for managing User objects.
+ * <p>
+ * This class provides endpoints for handling user-related operations such as
+ * retrieving users, signing up new users, handling authentication, logging out users, updating existing users, and deleting users.
+ * </p>
+ * 
+ * <h2>Endpoints:</h2>
+ * <ul>
+ *   <li>GET /users            Retrieve all roles</li>
+ *   <li>GET /users/{id}       Retrieve a role by its ID</li>
+ *   <li>GET /users/current    Retrive currently authenticated user</li>
+ *   <li>POST /users/sign-up   Register a new user</li>
+ *   <li>POST /users/sign-in   Sign in a user</li>
+ *   <li>POST /users/sign-out  Log out current user</li>
+ *   <li>PUT /users/{id}       Update an existing role</li>
+ *   <li>DELETE /users/{id}    Delete a role</li>
+ * </ul>
+ * 
+ * @author                     Needle & Stitch
+ * @version                    1.0.0
+ * @since                      15.12.2024
+ */
 @Controller
 @RequestMapping("/users")
 @CrossOrigin
 public class UserController {
+
+     /**
+     * Service class for handling user-related operations.
+     */
     @Autowired
     private UserService userService;
-    
+
+     /**
+     * Service class for handling role-related operations.
+     */
     @Autowired
     private RoleService roleService;
     
+     /**
+     * Utility class for handling JWT token operations.
+     */
     @Autowired
     private JwtUtil jwtUtil;
 
+    /**
+     * Endpoint to retrieve all users.
+     *
+     * @return                A ResponseEntity containing a list of all User objects.
+     * 
+     */
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.findAll();
         return ResponseEntity.ok(users);
     }
 
+    /**
+     * Endpoint to retrieve a clothing item by its ID.
+     *
+     * @param id             The ID of the user.
+     * @return               A ResponseEntity containing the User object if found or a 404 Not Found status if the object does not exist.
+     * 
+     */
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         try {
@@ -53,6 +98,12 @@ public class UserController {
         }
     }
     
+     /**
+     * Endpoint to retrieve the currently authenticated user based on the JWT token from cookies.
+     * 
+     * @param request       The HTTP request containing the cookies
+     * @return              A ResponseEntity containing the current user and a status of OK (200) if authenticated, or UNAUTHORIZED (401) if not
+     */
     @GetMapping("/current")
     public ResponseEntity<User> getCurrentUser(HttpServletRequest request) {
         String token = null;
@@ -76,6 +127,13 @@ public class UserController {
         }
     }
 
+    /**
+     * Endpoint to register a new user.
+     * 
+     * @param user          The user information to be used for the registration
+     * @param response      The HTTP response for setting the JWT cookie
+     * @return              A ResponseEntity with a CREATED (201) status
+     */
     @PostMapping("/sign-up")
     public ResponseEntity<Void> createUser(@RequestBody User user, HttpServletResponse response) {
     	Role defaultRole = roleService.findByName("User");
@@ -104,6 +162,13 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
     
+     /**
+     * Endpoint to authenticate a user and return their information.
+     * 
+     * @param user         The user credentials (email and password)
+     * @param response     The HTTP response for setting the JWT cookie
+     * @return             A ResponseEntity containing the authenticated user and a status of OK (200) if successful, or UNAUTHORIZED (401) if authentication fails.
+     */
     @PostMapping("/sign-in")
     public ResponseEntity<User> signIn(@RequestBody User user, HttpServletResponse response) {
     	try {
@@ -124,7 +189,13 @@ public class UserController {
     		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
     	}
     }
-    
+
+    /**
+     * Endpoint to log the user out by removing the JWT cookie.
+     * 
+     * @param response      The HTTP response for removing the JWT cookie
+     * @return              A ResponseEntity with a status of OK (200).
+     */
     @PostMapping("/sign-out")
     public ResponseEntity<Void> signOut(HttpServletResponse response) {
         Cookie cookie = new Cookie("jwt", null);
@@ -136,6 +207,14 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * Endpoint to update an existing user by its ID.
+     *
+     * @param id            The ID of the user to update.
+     * @param userDetails   The updated User object.
+     * @return              A ResponseEntity with a 200 OK status if successful, or a 404 Not Found status if the object does not exist.
+     * 
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
         try {
@@ -146,6 +225,13 @@ public class UserController {
         }
     }
 
+    /**
+     * Endpoint to delete a user by its ID.
+     *
+     * @param id            The ID of the user to delete.
+     * @return              A ResponseEntity with a 204 No Content status if successful, or a 404 Not Found status if not.
+     * 
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         try {
