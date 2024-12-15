@@ -4,7 +4,21 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.needleandstitch.pavuk.model.Role;
 
-
+/**
+ * Repository interface for managing Role entities.
+ * <p>
+ * This interface provides methods for performing CRUD operations
+ * and additional query methods for interacting with the database.
+ * </p>
+ * 
+ * @author                            Needle & Stitch
+ * @version                           1.0.0
+ * @since                             15.12.2024
+ */
 public interface RoleRepository extends JpaRepository<Role, Long> {
+	 /**
+     * Finds a role by its name.
+     * @param name 					  The name of the role to find
+     */
 	public Optional<Role> findByName(String name);
 }
