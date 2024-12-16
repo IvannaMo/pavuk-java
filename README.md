@@ -62,7 +62,7 @@ The purpose of this project is to make it easier for clients and tailors to work
    - DB_USERNAME = <your_db_username>
    - DB_PASSWORD = <your_db_password>
    - JWT_SECRET = <jwt_secret_key>
-   - JWT_EXPIRATION_MS = <jwt_exporation_ms>
+   - JWT_EXPIRATION_MS = <jwt_expiration_ms>
 
 #### Frontend Setup:
 
@@ -103,5 +103,5 @@ The purpose of this project is to make it easier for clients and tailors to work
 
 ## Javadoc
 
-- For a more detailed insight into classes and methods you can see: <insert_javadoc_link_here>
+- For a more detailed insight into classes and methods you can see: https://ivannamo.github.io/pavuk-java/
 
