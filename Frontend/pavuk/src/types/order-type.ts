@@ -1,14 +1,10 @@
 type OrderType = {
   id: string,
-  productId: string,
-  clientId: string,
-  seamstressId: string,
-  price: number,
-  imageUrl: string,
-  notes: string,
+  customerId: string,
+  clothingItemId: string,
+  shippingInfoId: string,
   orderDate: string,
-  confirmDate: string,
-  isActive: boolean
+  status: string,
 };
 
 export default OrderType;

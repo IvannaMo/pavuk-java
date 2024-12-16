@@ -6,7 +6,7 @@ import Footer from "../../components/common/Footer";
 function UserAccount() {
   return (
     <>
-      <Navbar productsLink={true}></Navbar>
+      <Navbar userAccountLink={false} clothingItemsLink={true}></Navbar>
       <UserInfo></UserInfo>
       <Footer></Footer>
     </>

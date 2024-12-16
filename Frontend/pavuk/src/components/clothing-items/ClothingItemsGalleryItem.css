@@ -1,0 +1,44 @@
+.clothing-gallery-item-container {
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.clothing-gallery-item-image {
+    background-color: white;
+    padding: 30px;
+    object-fit: contain;
+}
+
+.clothing-gallery-item-heading {
+    font-family: "Gilroy Bold";
+    color: #3C3D42;
+}
+
+.clothing-gallery-item-subtitle {
+    font-family: "Gilroy SemiBold";
+    color: #A5A7AA;
+}
+
+.clothing-gallery-item-price {
+    font-family: "Gilroy Bold";
+    color: #79B076;
+}
+
+.clothing-gallery-item-price-currency {
+    font-family: "ZonaPro Bold";
+}
+
+.clothing-gallery-item-button {
+    display: inline-block;
+    background-color: #d15050;
+    border-radius: 14px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.clothing-gallery-item-button:hover {
+    background-color: #de5f5f;
+}

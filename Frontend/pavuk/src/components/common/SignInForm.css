@@ -41,7 +41,7 @@
     background-color: #F0F0F1;
     border-radius: 9px;
     font-family: "Gilroy SemiBold";
-    color: #4D4E53;
+    color: #4c4d52;
     outline: none;
 }
 
@@ -61,7 +61,7 @@
 }
 
 .sign-in-form-button:hover {
-    background-color: #4D4E53;
+    background-color: #4c4d52;
 }
 
 .sign-in-form-button-disabled {
@@ -75,5 +75,5 @@
 
 .sign-in-form-link {
     font-family: "Gilroy Bold";
-    color: #4D4E53;
+    color: #4c4d52;
 }

@@ -1,4 +1,4 @@
-function sliceProductListName(description: string) {
+function sliceClothingItemName(description: string) {
     const words = description.split(" ");
 
     let maxLength = 2;
@@ -10,7 +10,7 @@ function sliceProductListName(description: string) {
     return result;
 };
 
-function sliceProductListDescription(description: string) {
+function sliceClothingItemDescription(description: string) {
     const words = description.split(" ");
 
     let maxLength = 3;
@@ -22,4 +22,4 @@ function sliceProductListDescription(description: string) {
     return result;
 };
 
-export { sliceProductListName, sliceProductListDescription };
+export { sliceClothingItemName, sliceClothingItemDescription };

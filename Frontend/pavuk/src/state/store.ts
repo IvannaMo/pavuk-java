@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import uiSliceReducer from "./ui/ui-slice";
 import usersSliceReducer from "./users/users-slice";
-import productsSliceReducer from "./products/products-slice";
+import clothingItemsSliceReducer from "./clothing-items/clothing-items-slice";
 import ordersSliceReducer from "./orders/orders-slice";
 
 
@@ -9,7 +9,7 @@ export const store = configureStore({
   reducer: {
     ui: uiSliceReducer,
     users: usersSliceReducer,
-    products: productsSliceReducer,
+    clothingItems: clothingItemsSliceReducer,
     orders: ordersSliceReducer
   }
 });

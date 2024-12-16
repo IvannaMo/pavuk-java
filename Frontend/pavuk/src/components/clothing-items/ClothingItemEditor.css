@@ -1,0 +1,61 @@
+.clothing-editor-section {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    margin-top: 84px;
+    background-color: #F0F0F1;
+    position: relative;
+}
+
+.clothing-editor {
+    position: relative;
+    display: flex;
+    background-color: white;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.clothing-editor-image {
+    aspect-ratio: 1/1;
+    height: 100%;
+    background-color: white;
+    object-fit: contain;
+}
+
+.clothing-editor-heading {
+    font-family: "Gilroy Bold";
+    color: #3C3D42;
+}
+
+.clothing-editor-subtitle {
+    font-family: "Gilroy SemiBold";
+    color: #A5A7AA;
+}
+
+.clothing-editor-price {
+    font-family: "Gilroy Bold";
+    color: #79B076;
+}
+
+.clothing-editor-price-currency {
+    font-family: "ZonaPro Bold";
+}
+
+.clothing-gallery-item-info {
+    font-family: "Gilroy SemiBold";
+    color: #afb5be;
+}
+
+.clothing-editor-button {
+    display: inline-block;
+    background-color: #d15050;
+    border-radius: 14px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.clothing-editor-button:hover {
+    background-color: #de5f5f;
+}

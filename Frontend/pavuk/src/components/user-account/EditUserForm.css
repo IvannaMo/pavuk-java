@@ -1,28 +1,27 @@
-.sign-up-form-section {
+.edit-user-form-section {
     display: flex;
     justify-content: center;
     margin-top: 84px;
     background-color: #F0F0F1;
 }
 
-.sign-up-form {
+.edit-user-form {
     position: relative;
     background-color: white;
     border-radius: 30px;
 }
 
-.sign-up-form-heading {
+.edit-user-form-heading {
     font-family: "Gilroy Bold";
     color: #3C3D42;
 }
 
-.sign-up-form-label {
-    display: block;
+.edit-user-form-label {
     font-family: "Gilroy SemiBold";
     color: #7A7D7F;
 }
 
-.sign-up-form-field {
+.edit-user-form-field {
     display: block;
     width: 100%;
     background-color: #F0F0F1;
@@ -32,12 +31,12 @@
     outline: none;
 }
 
-.sign-up-form-field-error {
+.edit-user-form-field-error {
     font-family: "Gilroy SemiBold";
     color: #d15050;
 }
 
-.sign-up-form-button, .sign-up-form-button-disabled {
+.edit-user-form-button, .edit-user-form-button-disabled {
     display: block;
     background-color: #3C3D42;
     border-radius: 14px;
@@ -47,10 +46,10 @@
     transition: 0.2s;
 }
 
-.sign-up-form-button:hover {
+.edit-user-form-button:hover {
     background-color: #4c4d52;
 }
 
-.sign-up-form-button-disabled {
+.edit-user-form-button-disabled {
     color: #BCBEC1;
 }

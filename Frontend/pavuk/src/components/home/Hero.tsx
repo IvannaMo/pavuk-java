@@ -18,7 +18,7 @@ function Hero() {
               <p className="hero-content-subtitle mt-5 text-3xl">
                 Більше 100 000 перевірених фахівців
               </p>
-              <Link className="hero-content-button mt-11 mb-3 px-8 py-4 text-2xl" to="/products">
+              <Link className="hero-content-button mt-11 mb-3 px-8 py-4 text-2xl" to="/clothing-items">
                 Cтворити замовлення
               </Link>
             </div>

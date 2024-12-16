@@ -7,8 +7,7 @@ const initialState: any = {
   users: [],
   signInError: null,
   signUpError: null,
-  isAuthenticated: false,
-  currentUser: null
+  currentUser: null,
 };
 
 
@@ -16,10 +15,7 @@ export const getUsers = createAsyncThunk(
   "users/getUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(
-        import.meta.env.VITE_SERVER_PATH + "users"
-      );
-      console.log(res.data);
+      const res = await axios.get(`${import.meta.env.VITE_SERVER_PATH}users`);
 
       return res.data as UserType[];
     } 
@@ -33,14 +29,32 @@ export const signInUser = createAsyncThunk(
   "users/signInUser",
   async (data: UserType, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER_PATH}users?email=${data.email}&password=${data.password}`
+      const response = await axios.post(
+        `${import.meta.env.VITE_SERVER_PATH}users/sign-in`,
+        data,
+        { withCredentials: true }
       );
 
-      if (!response.data[0]) {
-        return rejectWithValue("Неправильний email або пароль");
+      if (response.status === 200) {
+        return response.data as UserType;
       }
-      return response.data[0];
+    } 
+    catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const checkAuthentication = createAsyncThunk(
+  "users/checkAuthentication",
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_PATH}users/current`, 
+        { withCredentials: true }
+      );
+
+      return response.data as UserType;
     } 
     catch (error: any) {
       return rejectWithValue(error.message);
@@ -75,7 +89,24 @@ export const editUser = createAsyncThunk(
         `${import.meta.env.VITE_SERVER_PATH}users/${editedUser.id}`, 
         editedUser
       );
+      
       return res.data as UserType;
+    } 
+    catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const signOutUser = createAsyncThunk(
+  "users/signOutUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      await axios.post(
+        `${import.meta.env.VITE_SERVER_PATH}users/sign-out`, 
+        {}, 
+        { withCredentials: true }
+      );
     } 
     catch (error: any) {
       return rejectWithValue(error.message);
@@ -103,18 +134,6 @@ const usersSlice = createSlice({
   reducers: {
     resetSignInError(state) {
       state.signInError = null;
-    },
-    loadUser(state) {
-      const currentUser = localStorage.getItem("currentUser");
-      if (currentUser) {
-        state.isAuthenticated = true;
-        state.currentUser = JSON.parse(currentUser);
-      }
-    },
-    signOutUser(state) { 
-      state.isAuthenticated = false;
-      state.currentUser = null;
-      localStorage.removeItem("currentUser");
     }
   },
   extraReducers: (builder) => {
@@ -135,25 +154,35 @@ const usersSlice = createSlice({
     .addCase(signInUser.fulfilled, (state, action) => {
       console.log("signInUser success");
       state.signInError = null;
-      // state.isAuthenticated = true;
-      // state.currentUser = action.payload;
-      // localStorage.setItem("currentUser", JSON.stringify(action.payload));
+      state.currentUser = action.payload;
     })
     .addCase(signInUser.rejected, (state, action) => {
       console.log("signInUser rejected");
       state.signInError = action.payload as string;
+      state.currentUser = null;
+    })
+    .addCase(checkAuthentication.fulfilled, (state, action) => {
+      console.log("checkAuthentication success");
+      state.currentUser = action.payload;
+    })
+    .addCase(checkAuthentication.pending, (state) => {
+      console.log("checkAuthentication pending");
+    })
+    .addCase(checkAuthentication.rejected, (state) => {
+      console.log("checkAuthentication rejected");
+      state.currentUser = null;
     })
     .addCase(signUpUser.pending, (state) => {
       console.log("signUpUser pending");
     })
     .addCase(signUpUser.fulfilled, (state, action) => {
       console.log("signUpUser success");
-      // state.isAuthenticated = true;
-      // state.currentUser = action.payload;
-      // state.users.push(action.payload);
+      state.currentUser = action.payload;
+      state.users.push(action.payload);
     })
     .addCase(signUpUser.rejected, (state, action) => {
       console.log("signUpUser rejected");
+      state.currentUser = null;
     })
     .addCase(editUser.pending, (state) => {
       console.log("editUser pending");
@@ -168,11 +197,17 @@ const usersSlice = createSlice({
 
       if (state.currentUser.id === updatedUser.id) {
         state.currentUser = updatedUser;
-        localStorage.setItem("currentUser", JSON.stringify(updatedUser));
       }
     })
     .addCase(editUser.rejected, (state, action) => {
       console.log("editUser rejected");
+    })
+    .addCase(signOutUser.fulfilled, (state) => {
+      console.log("signOutUser success");
+      state.currentUser = null;
+    })
+    .addCase(signOutUser.rejected, (state, action) => {
+      console.log("signOutUser rejected");
     })
     .addCase(removeUser.pending, (state) => {
       console.log("removeUser pending");
@@ -187,5 +222,5 @@ const usersSlice = createSlice({
   }
 }); 
 
-export const { resetSignInError, loadUser, signOutUser } = usersSlice.actions;
+export const { resetSignInError } = usersSlice.actions;
 export default usersSlice.reducer;

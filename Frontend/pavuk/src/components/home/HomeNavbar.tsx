@@ -2,24 +2,18 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../state/store";
 import { showSignInForm } from "../../state/ui/ui-slice";
-import { loadUser } from "../../state/users/users-slice";
-import { useEffect } from "react";
 import SignIn from "../common/SignInForm";
 import "./HomeNavbar.css";
 
 
 function HomeNavbar() {
   const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(loadUser());
-  }, [dispatch]);
   
   const isSignInFormVisible = useSelector((state: RootState) => {
     return state.ui.isSignInFormVisible;
   });
 
-  const isAuthenticated = useSelector((state: RootState) => state.users.isAuthenticated);
+  const currentUser = useSelector((state: RootState) => state.users.currentUser);
 
   const signIn = () => {
     dispatch(showSignInForm());
@@ -38,8 +32,8 @@ function HomeNavbar() {
           <ul className="home-navbar-list">
             <li className="mr-10 text-lg">UA</li>
 
-            {isAuthenticated ? (
-              <Link className="px-7 py-2 text-lg" to="/user-profile">
+            {currentUser ? (
+              <Link className="px-7 py-2 text-lg" to="/user-account">
                 Особистий кабінет
               </Link>
             ) : (
