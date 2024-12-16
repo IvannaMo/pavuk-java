@@ -6,16 +6,41 @@ import org.springframework.stereotype.Component;
 import com.needleandstitch.pavuk.model.Color;
 import com.needleandstitch.pavuk.repository.ColorRepository;
 
-
+/**
+ * Seeder class for initializing default colors in the database. 
+ * This class checks that certain colors are present in the database and adds them if they are missing.
+ *
+ * <p>The seeding process is triggered during application startup.</p>
+ *
+ *
+ * @author                          Needle & Stitch
+ * @version                         1.0.0
+ * @since                           15.12.2024
+ */
 @Component
 @Order(8)
 public class ColorSeeder implements CommandLineRunner {
+	/** 
+    * Repository for performing CRUD operations on colors. 
+    */
 	private final ColorRepository colorRepository;
 
+	 /**
+     * Constructs a new ColorSeeder with the specified repository.
+     *
+     * @param colorRepository 		The repository used for interacting with the Color entities
+     */
     public ColorSeeder(ColorRepository colorRepository) {
         this.colorRepository = colorRepository;
     }
     
+	/**
+     * Seeds the database with default colors if they are not already present.
+     *
+     * @param args                   The command-line arguments passed to the application
+     * 
+     * @throws Exception 			 if any error occurs during the seeding process
+     */
     @Override
     public void run(String... args) throws Exception {
     	if (colorRepository.findByHex("#f9f9f9").isEmpty()) {
