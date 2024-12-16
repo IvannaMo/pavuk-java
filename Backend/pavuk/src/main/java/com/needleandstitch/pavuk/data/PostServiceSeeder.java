@@ -7,10 +7,12 @@ import com.needleandstitch.pavuk.model.PostService;
 import com.needleandstitch.pavuk.repository.PostServiceRepository;
 
 /**
- * Seeder class for initializing default post services in the database. 
+ * Seeder class for initializing default post services in the database.
  * This class checks that certain post services are present in the database and adds them if they are missing.
  *
- * <p>The seeding process is triggered during application startup.</p>
+ * <p>
+ * The seeding process is triggered during application startup.
+ * </p>
  *
  *
  * @author                          Needle & Stitch
@@ -20,12 +22,12 @@ import com.needleandstitch.pavuk.repository.PostServiceRepository;
 @Component
 @Order(11)
 public class PostServiceSeeder implements CommandLineRunner {
-	/** 
-    * Repository for performing CRUD operations on post services. 
-    */
-	private final PostServiceRepository postServiceRepository;
+    /**
+     * Repository for performing CRUD operations on post services.
+     */
+    private final PostServiceRepository postServiceRepository;
 
-	/**
+    /**
      * Constructs a new PostServiceSeeder with the specified repository.
      *
      * @param postServiceRepository The repository used for interacting with the PostService entities
@@ -35,19 +37,20 @@ public class PostServiceSeeder implements CommandLineRunner {
     }
 
     /**
-     * Seeds the database with default post services if they are not already present.
+     * Seeds the database with default post services if they are not already
+     * present.
      *
-     * @param args                   The command-line arguments passed to the application
+     * @param args                  The command-line arguments passed to the application
      * 
-     * @throws Exception 			 if any error occurs during the seeding process
+     * @throws Exception            if any error occurs during the seeding process
      */
     @Override
     public void run(String... args) throws Exception {
-    	if (postServiceRepository.findByName("Нова пошта").isEmpty()) {
-    		postServiceRepository.save(new PostService("Нова пошта"));
-    	}
-    	if (postServiceRepository.findByName("Укрпошта").isEmpty()) {
-    		postServiceRepository.save(new PostService("Укрпошта"));
-    	}
+        if (postServiceRepository.findByName("Нова пошта").isEmpty()) {
+            postServiceRepository.save(new PostService("Нова пошта"));
+        }
+        if (postServiceRepository.findByName("Укрпошта").isEmpty()) {
+            postServiceRepository.save(new PostService("Укрпошта"));
+        }
     }
 }
