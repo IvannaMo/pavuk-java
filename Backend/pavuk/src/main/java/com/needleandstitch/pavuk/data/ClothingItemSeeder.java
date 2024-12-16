@@ -21,7 +21,7 @@ import jakarta.persistence.EntityNotFoundException;
  * <p>The seeding process is triggered during application startup.</p>
  *
  *
- * @author                           Needle & Stitch
+ * @author                           Needle &amp; Stitch
  * @version                          1.0.0
  * @since                            15.12.2024
  */

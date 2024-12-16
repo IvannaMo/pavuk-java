@@ -11,7 +11,7 @@ import com.needleandstitch.pavuk.model.PostService;
  * and additional query methods for interacting with the database.
  * </p>
  * 
- * @author                            Needle & Stitch
+ * @author                            Needle &amp; Stitch
  * @version                           1.0.0
  * @since                             15.12.2024
  */
@@ -19,6 +19,7 @@ public interface PostServiceRepository extends JpaRepository<PostService, Long> 
 	 /**
      * Finds a post service by its name.
      * @param name 					  The name of the post service to find
+     * @return						  An Optional containing the found PostService if present, otherwise an empty Optional.
      */
 	public Optional<PostService> findByName(String name);
 }

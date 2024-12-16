@@ -22,7 +22,7 @@ import jakarta.persistence.Table;
  * This class serves as a model for the user table in the database.
  * </p> 
  * 
- * @author                            Needle & Stitch
+ * @author                            Needle &amp; Stitch
  * @version                           1.0.0
  * @since                             15.12.2024
  */
@@ -147,21 +147,30 @@ public class User {
 	@Column(name = "online_date")
 	private LocalDateTime onlineDate;
 	
-	 /**
-     * Enum representing the possible statuses of a user.
-     * <p>
-     * The possible statuses are:
-     * <ul>
-     *   <li>{@code ONLINE}          User is currently active and online.</li>
-     *   <li>{@code IDLE}            User is online but inactive.</li>
-     *   <li>{@code OFFLINE}         User is not online.</li>
-     *   <li>{@code BANNED}          User is banned and cannot access the system.</li>
-     * </ul>
-     * </p>
-     */
-	public enum Status {
-	    ONLINE, IDLE, OFFLINE, BANNED
-	}
+	/**
+    *Enum representing the status of a user.
+    */
+    public enum Status {
+        /**
+         * The user is currently online and active.
+         */
+        ONLINE,
+
+        /**
+         * The user is idle and not actively interacting, but still logged in.
+         */
+        IDLE,
+
+        /**
+         * The user is not online or logged in.
+         */
+        OFFLINE,
+
+        /**
+         * The user has been banned and cannot access the platform.
+         */
+        BANNED
+    }
 	
 	  /**
      * Default constructor.

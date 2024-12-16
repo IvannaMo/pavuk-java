@@ -42,7 +42,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *   <li>DELETE /users/{id}    Delete a role</li>
  * </ul>
  * 
- * @author                     Needle & Stitch
+ * @author                     Needle &amp; Stitch
  * @version                    1.0.0
  * @since                      15.12.2024
  */

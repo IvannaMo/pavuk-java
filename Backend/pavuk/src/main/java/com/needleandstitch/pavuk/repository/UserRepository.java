@@ -11,14 +11,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * and additional query methods for interacting with the database.
  * </p>
  * 
- * @author                            Needle & Stitch
+ * @author                            Needle &amp; Stitch
  * @version                           1.0.0
  * @since                             15.12.2024
  */
 public interface UserRepository extends JpaRepository<User, Long> {
 	 /**
      * Finds a user by its email.
-     * @param name 					  The email of the user to find
+     * @param email 				The email of the user to find
+     * @return						An Optional containing the found User if present, otherwise an empty Optional.
      */
 	public Optional<User> findByEmail(String email);
 }

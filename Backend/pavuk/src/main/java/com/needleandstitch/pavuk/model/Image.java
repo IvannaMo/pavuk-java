@@ -13,7 +13,7 @@ import jakarta.persistence.Table;
  * This class serves as a model for the image table in the database.
  * </p> 
  * 
- * @author                            Needle & Stitch
+ * @author                            Needle &amp; Stitch
  * @version                           1.0.0
  * @since                             15.12.2024
  */

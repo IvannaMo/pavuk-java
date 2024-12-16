@@ -17,7 +17,7 @@ import com.needleandstitch.pavuk.security.JwtFilter;
  *
  * <p>It configures CORS, CSRF, authentication rules, and integrates JWT filtering for request authorization. Specific endpoints are allowed to bypass authentication for public access.</p>
  *
- * @author                          Needle & Stitch
+ * @author                          Needle &amp; Stitch
  * @version                         1.0.0
  * @since                           15.12.2024
  */

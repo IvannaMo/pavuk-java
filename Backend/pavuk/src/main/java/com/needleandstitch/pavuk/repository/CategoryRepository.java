@@ -11,7 +11,7 @@ import com.needleandstitch.pavuk.model.Category;
  * and additional query methods for interacting with the database.
  * </p>
  * 
- * @author                            Needle & Stitch
+ * @author                            Needle &amp; Stitch
  * @version                           1.0.0
  * @since                             15.12.2024
  */
@@ -19,6 +19,7 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 	 /**
      * Finds a category by its name.
      * @param name 					  The name of the category to find
+     * @return						  An Optional containing the found Category if present, otherwise an empty Optional.
      */
 	public Optional<Category> findByName(String name);
 }

@@ -11,14 +11,15 @@ import com.needleandstitch.pavuk.model.ShippingInfo;
  * and additional query methods for interacting with the database.
  * </p>
  * 
- * @author                            Needle & Stitch
+ * @author                            Needle &amp; Stitch
  * @version                           1.0.0
  * @since                             15.12.2024
  */
 public interface ShippingInfoRepository extends JpaRepository<ShippingInfo, Long>  {
 	 /**
      * Finds a user shipping information by its postal code.
-     * @param name 					  The postal code of the shipping information to find
+     * @param postalCode 			The postal code of the shipping information to find
+     * @return						An Optional containing the found ShippingInfo if present, otherwise an empty Optional.
      */
 	public Optional<ShippingInfo> findByPostalCode(String postalCode);
 }

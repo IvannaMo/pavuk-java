@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
  * This class serves as a model for the order table in the database.
  * </p> 
  * 
- * @author                            Needle & Stitch
+ * @author                            Needle &amp; Stitch
  * @version                           1.0.0
  * @since                             15.12.2024
  */
@@ -88,19 +88,32 @@ public class Order {
 
     /**
      * Enum representing the possible statuses of an order.
-     * <p>
-     * The possible statuses are:
-     * <ul>
-     *   <li>{@code PENDING} - Order is awaiting processing.</li>
-     *   <li>{@code PROCESSING} - Order is being processed.</li>
-     *   <li>{@code SHIPPED} - Order has been shipped.</li>
-     *   <li>{@code DELIVERED} - Order has been delivered.</li>
-     *   <li>{@code CANCELLED} - Order has been cancelled.</li>
-     * </ul>
-     * </p>
      */
     public enum Status {
-        PENDING, PROCESSING, SHIPPED, DELIVERED, CANCELLED
+        /**
+         * The order is pending and has not been processed yet.
+         */
+        PENDING,
+    
+        /**
+         * The order is currently being processed.
+         */
+        PROCESSING,
+    
+        /**
+         * The order has been shipped and is on its way.
+         */
+        SHIPPED,
+    
+        /**
+         * The order has been delivered to the customer.
+         */
+        DELIVERED,
+    
+        /**
+         * The order has been cancelled.
+         */
+        CANCELLED;
     }
 
     /**
