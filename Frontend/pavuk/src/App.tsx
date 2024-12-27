@@ -1,15 +1,19 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/home/Home";
-import ClothingItems from "./pages/clothing-items/ClothingItems";
-import SignUp from "./pages/sign-up/SignUp";
-import ProtectedUserRoute from "./pages/user-account/ProtectedUserRoute";
-import UserAccount from "./pages/user-account/UserAccount";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { checkAuthentication } from "./state/users/users-slice";
 import { AppDispatch } from "./state/store";
+import Home from "./pages/home/Home";
+import ClothingItems from "./pages/clothing-items/ClothingItems";
+import SignUp from "./pages/sign-up/SignUp";
+import ProtectedAdminUserRoute from "./pages/user-account/ProtectedAdminUserRoute";
+import ProtectedUserRoute from "./pages/user-account/ProtectedUserRoute";
+import UserAccount from "./pages/user-account/UserAccount";
+import EditCurrentUser from "./pages/user-account/EditCurrentUser";
 import EditUser from "./pages/user-account/EditUser";
 import ClothingItemCustomization from "./pages/clothing-items/ClothingItemCustomization";
+import OrderConfirmation from "./pages/orders/OrderConfirmation";
+import CreateUser from "./pages/user-account/CreateUser";
 import "./App.css";
 
 
@@ -25,10 +29,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/clothing-items" element={<ClothingItems />} />
-        <Route path="/clothing-items/customization/:productId" element={<ProtectedUserRoute><ClothingItemCustomization /></ProtectedUserRoute>} />
+        <Route path="/clothing-items/customization/:clothingItemId" element={<ProtectedUserRoute><ClothingItemCustomization /></ProtectedUserRoute>} />
+        <Route path="/orders/confirmation/:orderId" element={<ProtectedUserRoute><OrderConfirmation /></ProtectedUserRoute>} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route path="/user-account" element={<ProtectedUserRoute><UserAccount /></ProtectedUserRoute>} />
-        <Route path="/edit-user/:userId" element={<ProtectedUserRoute><EditUser /></ProtectedUserRoute>} />
+        <Route path="/create-user" element={<ProtectedAdminUserRoute><CreateUser /></ProtectedAdminUserRoute>} />
+        <Route path="/edit-user" element={<ProtectedUserRoute><EditCurrentUser /></ProtectedUserRoute>} />
+        <Route path="/edit-user/:userId" element={<ProtectedAdminUserRoute><EditUser /></ProtectedAdminUserRoute>} />
       </Routes>
     </BrowserRouter>
   );

@@ -1,0 +1,54 @@
+.user-list-container {
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.user-list-create-user-link, .user-list-edit-user-button, .user-list-remove-user-button {
+    background-color: #7A7D7F;
+}
+
+.user-list-create-user-link:hover, .user-list-edit-user-button:hover, .user-list-remove-user-button:hover {
+    background-color: #909295;
+}
+
+.user-list-create-user-link {
+    display: inline-block;
+    border-radius: 14px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.user-list-thead {
+    background-color: #A5A7AA;
+}
+
+.user-list-th {
+    font-family: "Gilroy Bold";
+    color: white;
+}
+
+.user-list-tr {
+    color: #7A7D7F;
+}
+
+.user-list-tr-removed {
+    color: #BCBEC1;
+}
+
+.user-list-td {
+    font-family: "Gilroy SemiBold";
+    /* color: #7A7D7F; */
+}
+
+.user-list-remove-user-button, .user-list-edit-user-button {
+    border-radius: 10px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}

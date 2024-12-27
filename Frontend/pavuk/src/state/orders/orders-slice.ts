@@ -13,9 +13,9 @@ export const getOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        import.meta.env.VITE_SERVER_PATH + "orders"
+        import.meta.env.VITE_SERVER_PATH + "orders",
+        { withCredentials: true }
       );
-      console.log(res.data);
 
       return res.data as OrderType[];
     } 
@@ -27,11 +27,12 @@ export const getOrders = createAsyncThunk(
 
 export const createOrder = createAsyncThunk(
   "orders/createOrder",
-  async (data: OrderType, { rejectWithValue }) => {
+  async (data: any, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        import.meta.env.VITE_SERVER_PATH + "orders",
-        data
+        `${import.meta.env.VITE_SERVER_PATH}orders/create`,
+        data,
+        { withCredentials: true }
       );
 
       if (response.status === 201) {
@@ -44,34 +45,34 @@ export const createOrder = createAsyncThunk(
   }
 );
 
-export const editOrder = createAsyncThunk(
-  "orders/editOrder",
-  async (editedOrder: OrderType, { rejectWithValue }) => {
-      try {
-        const res = await axios.put(
-          `${import.meta.env.VITE_SERVER_PATH}orders/${editedOrder.id}`, 
-          editedOrder
-        );
-        return res.data as OrderType;
-      } 
-      catch (error: any) {
-        return rejectWithValue(error.message);
-      }
-  }
-);
+// export const editOrder = createAsyncThunk(
+//   "orders/editOrder",
+//   async (editedOrder: OrderType, { rejectWithValue }) => {
+//       try {
+//         const res = await axios.put(
+//           `${import.meta.env.VITE_SERVER_PATH}orders/${editedOrder.id}`, 
+//           editedOrder
+//         );
+//         return res.data as OrderType;
+//       } 
+//       catch (error: any) {
+//         return rejectWithValue(error.message);
+//       }
+//   }
+// );
 
-export const removeOrder = createAsyncThunk(
-  "orders/removeOrder",
-  async (orderId: string, { rejectWithValue }) => {
-    try {
-      await axios.delete(`${import.meta.env.VITE_SERVER_PATH}orders/${orderId}`);
-      return orderId; 
-    } 
-    catch (error: any) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
+// export const removeOrder = createAsyncThunk(
+//   "orders/removeOrder",
+//   async (orderId: string, { rejectWithValue }) => {
+//     try {
+//       await axios.delete(`${import.meta.env.VITE_SERVER_PATH}orders/${orderId}`);
+//       return orderId; 
+//     } 
+//     catch (error: any) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
 
 
 const ordersSlice = createSlice({
@@ -100,29 +101,29 @@ const ordersSlice = createSlice({
     .addCase(createOrder.rejected, (state, action) => {
       console.log("createOrder rejected");
     })
-    .addCase(editOrder.pending, (state) => {
-      console.log("editOrder pending");
-    })
-    .addCase(editOrder.fulfilled, (state, action) => {
-      console.log("editOrder success");
-      const updatedOrder = action.payload;
-      state.orders = state.orders.map((order: OrderType) =>
-        order.id === updatedOrder.id ? updatedOrder : order
-      );
-    })
-    .addCase(editOrder.rejected, (state, action) => {
-      console.log("editOrder rejected");
-    })
-    .addCase(removeOrder.pending, (state) => {
-      console.log("removeProduct pending");
-    })
-    .addCase(removeOrder.fulfilled, (state, action) => {
-      console.log("removeProduct success");
-      state.orders = state.orders.filter((order: OrderType) => order.id !== action.payload);
-    })
-    .addCase(removeOrder.rejected, (state, action) => {
-      console.log("removeProduct rejected");
-    });
+    // .addCase(editOrder.pending, (state) => {
+    //   console.log("editOrder pending");
+    // })
+    // .addCase(editOrder.fulfilled, (state, action) => {
+    //   console.log("editOrder success");
+    //   const updatedOrder = action.payload;
+    //   state.orders = state.orders.map((order: OrderType) =>
+    //     order.id === updatedOrder.id ? updatedOrder : order
+    //   );
+    // })
+    // .addCase(editOrder.rejected, (state, action) => {
+    //   console.log("editOrder rejected");
+    // })
+    // .addCase(removeOrder.pending, (state) => {
+    //   console.log("removeProduct pending");
+    // })
+    // .addCase(removeOrder.fulfilled, (state, action) => {
+    //   console.log("removeProduct success");
+    //   state.orders = state.orders.filter((order: OrderType) => order.id !== action.payload);
+    // })
+    // .addCase(removeOrder.rejected, (state, action) => {
+    //   console.log("removeProduct rejected");
+    // });
   }
 }); 
 

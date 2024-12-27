@@ -1,5 +1,5 @@
 type TailorType = {
-  id: number,
+  id?: number,
   name: string,
 };
 

@@ -3,29 +3,20 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../state/store";
-import { editUser } from "../../state/users/users-slice";
+import { editCurrentUser, editUser } from "../../state/users/users-slice";
 import { hideSignInForm } from "../../state/ui/ui-slice";
 import Checkbox from "../common/Checkbox";
 import DatePicker from "../common/DatePicker";
-import UserType from "../../types/user-type";
-import AdminUserType from "../../types/admin-user-type";
-import "./EditUserForm.css";
+import "./EditCurrentUserForm.css";
 
 
-interface EditUserFormProps {
-  userId: string | undefined;
-}
-
-function EditUserForm({ userId }: EditUserFormProps) {
+function EditCurrentUserForm() {
   const [isFormValid, setIsFormValid] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const location = useLocation();
   const navigate = useNavigate();
   const signUpError = useSelector((state: RootState) => state.users.signUpError);
   const currentUser = useSelector((state: RootState) => state.users.currentUser);
   const effectRan = useRef(false);
-  const { users } = location.state as { users: Array<AdminUserType> };
-  const user = currentUser.id === userId ? currentUser : users.find((user: UserType) => String(user.id) === String(userId));
 
   useEffect(() => {
     if (effectRan.current === false) {
@@ -39,10 +30,10 @@ function EditUserForm({ userId }: EditUserFormProps) {
 
   const editHandler = async (data: any) => {
     const { password, confirmPassword, ...rest } = data;
-    const tempUser = { ...user, ...rest };
+    const tempUser = { ...currentUser, ...rest };
     
-    const resultAction = await dispatch(editUser(tempUser));
-    if (editUser.fulfilled.match(resultAction)) {
+    const resultAction = await dispatch(editCurrentUser(tempUser));
+    if (editCurrentUser.fulfilled.match(resultAction)) {
       navigate("/user-account");
     }
   };
@@ -51,12 +42,12 @@ function EditUserForm({ userId }: EditUserFormProps) {
     <section className="edit-user-form-section pt-11 pb-14">
       <Formik 
         initialValues={{
-          firstName: user.firstName,
-          lastName: user.lastName,
-          dateOfBirth: new Date(user.dateOfBirth),
-          phone: user.phone,
-          email: user.email,
-          newsletterSubscription: user.newsletterSubscription,
+          firstName: currentUser.firstName,
+          lastName: currentUser.lastName,
+          dateOfBirth: new Date(currentUser.dateOfBirth),
+          phone: currentUser.phone,
+          email: currentUser.email,
+          newsletterSubscription: currentUser.newsletterSubscription,
         }}
         validationOnInput
         onSubmit={editHandler}
@@ -162,4 +153,4 @@ function EditUserForm({ userId }: EditUserFormProps) {
   );
 }
 
-export default EditUserForm;
+export default EditCurrentUserForm;

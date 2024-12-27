@@ -15,9 +15,14 @@ export const getUsers = createAsyncThunk(
   "users/getUsers",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_SERVER_PATH}users`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_PATH}users`,
+        { withCredentials: true }
+      );
 
-      return res.data as UserType[];
+      if (response.status === 200) {
+        return response.data as UserType[];
+      }
     } 
     catch (error: any) {
       return rejectWithValue(error.message);
@@ -81,16 +86,39 @@ export const signUpUser = createAsyncThunk(
   }
 );
 
+export const editCurrentUser = createAsyncThunk(
+  "users/editCurrentUser",
+  async (editedCurrentUser: UserType, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(
+        `${import.meta.env.VITE_SERVER_PATH}users/current/${editedCurrentUser.id}`, 
+        editedCurrentUser,
+        { withCredentials: true }
+      );
+
+      if (response.status === 200) {
+        return response.data as UserType;
+      }
+    } 
+    catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const editUser = createAsyncThunk(
   "users/editUser",
   async (editedUser: UserType, { rejectWithValue }) => {
     try {
-      const res = await axios.put(
+      const response = await axios.put(
         `${import.meta.env.VITE_SERVER_PATH}users/${editedUser.id}`, 
-        editedUser
+        editedUser,
+        { withCredentials: true }
       );
-      
-      return res.data as UserType;
+
+      if (response.status === 200) {
+        return response.data as UserType;
+      }
     } 
     catch (error: any) {
       return rejectWithValue(error.message);
@@ -118,8 +146,14 @@ export const removeUser = createAsyncThunk(
   "users/removeUser",
   async (userId: string, { rejectWithValue }) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_SERVER_PATH}users/${userId}`);
-      return userId; 
+      const response = await axios.delete(
+        `${import.meta.env.VITE_SERVER_PATH}users/${userId}`,
+        { withCredentials: true }
+      );
+
+      if (response.status === 200) {
+        return response.data as string;
+      }
     } 
     catch (error: any) {
       return rejectWithValue(error.message);
@@ -172,17 +206,35 @@ const usersSlice = createSlice({
       console.log("checkAuthentication rejected");
       state.currentUser = null;
     })
-    .addCase(signUpUser.pending, (state) => {
-      console.log("signUpUser pending");
-    })
     .addCase(signUpUser.fulfilled, (state, action) => {
       console.log("signUpUser success");
       state.currentUser = action.payload;
       state.users.push(action.payload);
     })
+    .addCase(signUpUser.pending, (state) => {
+      console.log("signUpUser pending");
+    })
     .addCase(signUpUser.rejected, (state, action) => {
       console.log("signUpUser rejected");
       state.currentUser = null;
+    })
+    .addCase(editCurrentUser.pending, (state) => {
+      console.log("editCurrentUser pending");
+    })
+    .addCase(editCurrentUser.fulfilled, (state, action) => {
+      console.log("editCurrentUser success");
+      const updatedCurrentUser = action.payload;
+
+      if (updatedCurrentUser) {
+        state.users = state.users.map((user: UserType) =>
+          user.id === updatedCurrentUser.id ? updatedCurrentUser : user
+        );
+
+        state.currentUser = updatedCurrentUser;
+      }
+    })
+    .addCase(editCurrentUser.rejected, (state, action) => {
+      console.log("editCurrentUser rejected");
     })
     .addCase(editUser.pending, (state) => {
       console.log("editUser pending");
@@ -191,12 +243,10 @@ const usersSlice = createSlice({
       console.log("editUser success");
       const updatedUser = action.payload;
 
-      state.users = state.users.map((user: UserType) =>
-        user.id === updatedUser.id ? updatedUser : user
-      );
-
-      if (state.currentUser.id === updatedUser.id) {
-        state.currentUser = updatedUser;
+      if (updatedUser) {
+        state.users = state.users.map((user: UserType) =>
+          user.id === updatedUser.id ? updatedUser : user
+        );
       }
     })
     .addCase(editUser.rejected, (state, action) => {

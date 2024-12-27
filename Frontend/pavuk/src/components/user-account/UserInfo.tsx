@@ -6,6 +6,7 @@ import { signOutUser } from "../../state/users/users-slice";
 import userAccountDefaultPhoto from "../../assets/images/user-account-photos/user-account-default-photo.jpg";
 import formatDate from "../../utils/formatDate";
 import "./UserInfo.css";
+import UserList from "./UserList";
 
 
 function UserInfo() {
@@ -52,7 +53,7 @@ function UserInfo() {
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Excepturi ipsa aliquam non adipisci eos consequuntur dolorum pariatur nobis minima, in magni itaque, inventore maiores ea aut totam velit dignissimos! Quasi ipsa in eligendi explicabo earum.
               </p>
               <div className="flex justify-end mt-8 w-full">
-                <Link className="user-info-general-info-edit-user-link px-5 py-2 text-lg" to={`/edit-user/${currentUser.id}`}>
+                <Link className="user-info-general-info-edit-user-link px-5 py-2 text-lg" to={`/edit-user`}>
                   Редагувати інформацію
                 </Link>
               </div>
@@ -65,7 +66,7 @@ function UserInfo() {
       title: "Список користувачів",
       content: (
         <div className="h-full w-full">
-          {/* <UserList /> */}
+          <UserList />
         </div>
       ),
     },
@@ -92,7 +93,7 @@ function UserInfo() {
     navigate("/");
   };
 
-  const filteredItems = currentUser.role.name === "Admin" ? items : items.filter((_, index: number) => index === 0);
+  const filteredItems = currentUser.role.name === "ROLE_ADMIN" ? items : items.filter((_, index: number) => index === 0);
 
   return (
     <section className="user-info-section">

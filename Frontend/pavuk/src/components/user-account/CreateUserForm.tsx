@@ -8,10 +8,10 @@ import { hideSignInForm } from "../../state/ui/ui-slice";
 import yupSignUpSchema from "../../schemes/yup-sign-up-schema";
 import DatePicker from "../common/DatePicker";
 import Checkbox from "../common/Checkbox";
-import "./SignUpForm.css";
+import "../sign-up/SignUpForm.css";
 
 
-function SignUpForm() {
+function CreateUserForm() {
   const [isFormValid, setIsFormValid] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -28,10 +28,8 @@ function SignUpForm() {
     }
   }, []);
 
-  const signUpHandler = async (data: any) => {
-    const { confirmPassword, ...userData } = data;
-    
-    const resultAction = await dispatch(signUpUser(userData));
+  const createHandler = async (data: any) => {
+    const resultAction = await dispatch(signUpUser(data));
     if (signUpUser.fulfilled.match(resultAction)) {
       navigate("/user-account");
     }
@@ -52,16 +50,14 @@ function SignUpForm() {
         }}
         validationSchema={yupSignUpSchema}
         validationOnInput
-        onSubmit={signUpHandler} 
+        onSubmit={createHandler} 
       >
         {({values, errors, touched, isValid, handleSubmit}) => {
-          useEffect(() => {
-            setIsFormValid(isValid);
-          }, [isValid]); 
+          setIsFormValid(isValid);
 
           return (
             <form onSubmit={handleSubmit} className="sign-up-form px-16 pt-9 pb-11 w-6/12">
-              <h2 className="sign-up-form-heading mb-4 w-full text-center text-3xl">Реєстрація</h2>
+              <h2 className="sign-up-form-heading mb-4 w-full text-center text-3xl">Створення користувача</h2>
 
               {signUpError && <p className="sign-up-form-field-error mt-3 mb-2 text-md">{signUpError}</p>}
 
@@ -177,7 +173,7 @@ function SignUpForm() {
               </div>
 
               <button className={`${isFormValid ? "sign-up-form-button" : "sign-up-form-button-disabled"} mx-auto mt-11 px-8 py-3 w-9/12 text-xl`} type="submit" disabled={!isFormValid}>
-                Зареєструватися
+                Створити
               </button>
             </form>
           );
@@ -187,4 +183,4 @@ function SignUpForm() {
   );
 }
 
-export default SignUpForm;
+export default CreateUserForm;

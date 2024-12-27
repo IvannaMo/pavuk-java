@@ -3,7 +3,7 @@ import TailorType from "./tailor-type";
 
 
 type UserType = {
-  id: string,
+  id?: string,
   firstName: string,
   lastName: string,
   dateOfBirth: string,
@@ -11,10 +11,10 @@ type UserType = {
   email: string,
   newsletterSubscription: boolean,
   role: RoleType;
-  tailor?: TailorType | null;
-  status: 'ONLINE' | 'IDLE' | 'OFFLINE' | 'BANNED',
+  tailor?: TailorType;
+  status: "ONLINE" | "IDLE" | "OFFLINE" | "BANNED" | "REMOVED",
   registrationDate: string;
-  onlineDate?: string | null;
+  onlineDate?: string;
 };
 
 export default UserType;

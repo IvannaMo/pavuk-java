@@ -2,7 +2,7 @@ import ImageType from "./image-type";
 
 
 type ClothingItemType = {
-  id: string,
+  id?: string,
   name: string,
   description: string,
   price: number,

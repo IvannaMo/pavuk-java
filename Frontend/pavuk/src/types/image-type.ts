@@ -1,5 +1,5 @@
 type ImageType = {
-  id: string,
+  id?: string,
   name: string,
   url: string,
   isPrimary: boolean,

@@ -9,9 +9,8 @@ import "./ClothingItemsGallery.css";
 
 function ClothingItemsGallery() {
   const dispatch = useDispatch<AppDispatch>();
-  const clothingItems: Array<ClothingItemType> = useSelector((state: RootState) => {
-    return state.clothingItems.clothingItems;
-  });
+  const clothingItems: Array<ClothingItemType> = useSelector((state: RootState) => state.clothingItems.clothingItems);
+
   const [sortOption, setSortOption] = useState("priceAsc");
   const effectRan = useRef(false);
 
