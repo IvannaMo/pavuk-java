@@ -35,10 +35,10 @@ public class UserServiceTests {
         user.setLastName("Doe");
         user.setEmail("john.doe@example.com");
         user.setDateOfBirth(LocalDate.of(1990, 1, 1));
-        user.setPhone("123456789");
+        user.setPhone("+380000000000");
         user.setNewsletterSubscription(true);
-        user.setPassword("password");
-        user.setRole(new Role("USER"));
+        user.setPassword("12345678");
+        user.setRole(new Role("ROLE_USER"));
     }
 
     @Test
@@ -89,9 +89,22 @@ public class UserServiceTests {
     @Test
     public void testUpdateUser_Success() {
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
-        userService.updateUser(1L, "new.email@example.com");
+        userService.updateUser(
+        	1L,
+        	"Test",
+        	"Doe",
+        	LocalDate.of(2000, 1, 1),
+           	"+380000000000",
+          	"test.doe@example.com",
+            true
+        );
 
-        assertEquals("new.email@example.com", user.getEmail());
+        assertEquals("Test", user.getFirstName());
+        assertEquals("Doe", user.getLastName());
+        assertEquals(LocalDate.of(2000, 1, 1), user.getDateOfBirth());
+        assertEquals("+380000000000", user.getPhone());
+        assertEquals("test.doe@example.com", user.getEmail());
+        assertTrue(user.getNewsletterSubscription());
         verify(userRepository, times(1)).save(user);
     }
 
@@ -100,7 +113,15 @@ public class UserServiceTests {
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> {
-            userService.updateUser(1L, "new.email@example.com");
+            userService.updateUser(
+            	1L,
+             	"Test",
+              	"Doe",
+              	LocalDate.of(2000, 1, 1),
+            	"+380000000000",
+              	"test.doe@example.com",
+               	true
+            );
         });
 
         assertEquals("User not found: 1", exception.getMessage());

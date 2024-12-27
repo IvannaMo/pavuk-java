@@ -28,7 +28,6 @@ import jakarta.persistence.EntityNotFoundException;
 @Component
 @Order(10)
 public class ClothingItemSeeder implements CommandLineRunner {
-        
     /** 
     * Repository for performing CRUD operations on clothing items. 
     */
@@ -77,6 +76,9 @@ public class ClothingItemSeeder implements CommandLineRunner {
 
         if (clothingItemRepository.findByName("Футболка").isEmpty()) {
             clothingItemRepository.save(new ClothingItem("Футболка", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", BigDecimal.valueOf(500), tShirtImages, tShirtCategory));
+        }
+        if (clothingItemRepository.findByName("Футболка 1").isEmpty()) {
+            clothingItemRepository.save(new ClothingItem("Футболка 1", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", BigDecimal.valueOf(500), tShirtImages, tShirtCategory));
         }
     }
 }

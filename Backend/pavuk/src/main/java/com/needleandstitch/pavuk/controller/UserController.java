@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -75,6 +76,7 @@ public class UserController {
      * @return                A ResponseEntity containing a list of all User objects.
      * 
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.findAll();
@@ -136,7 +138,7 @@ public class UserController {
      */
     @PostMapping("/sign-up")
     public ResponseEntity<Void> createUser(@RequestBody User user, HttpServletResponse response) {
-    	Role defaultRole = roleService.findByName("User");
+    	Role defaultRole = roleService.findByName("ROLE_USER");
     	
     	User newUser = userService.createUser(
         	user.getFirstName(),
@@ -198,15 +200,50 @@ public class UserController {
      */
     @PostMapping("/sign-out")
     public ResponseEntity<Void> signOut(HttpServletResponse response) {
-        Cookie cookie = new Cookie("jwt", null);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
-        cookie.setMaxAge(0);
-        response.addCookie(cookie);
+        Cookie deleteCookie = new Cookie("jwt", null);
+        deleteCookie.setHttpOnly(true);
+        deleteCookie.setPath("/");
+        deleteCookie.setMaxAge(0);
+        response.addCookie(deleteCookie);
 
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/current/{id}")
+    public ResponseEntity<User> updateCurrentUser(@PathVariable Long id, @RequestBody User userDetails, HttpServletResponse response) {
+        try {
+        	User updatedUser = userService.updateUser(
+            	id,
+            	userDetails.getFirstName(),
+            	userDetails.getLastName(),
+            	userDetails.getDateOfBirth(),
+            	userDetails.getPhone(),
+             	userDetails.getEmail(),
+            	userDetails.getNewsletterSubscription()
+            );
+        	
+        	Cookie deleteCookie = new Cookie("jwt", null);
+        	deleteCookie.setHttpOnly(true);
+        	deleteCookie.setPath("/");
+        	deleteCookie.setMaxAge(0);
+            response.addCookie(deleteCookie);
+            
+        	String token = jwtUtil.generateToken(updatedUser);
+    		
+    		Cookie cookie = new Cookie("jwt", token);
+            cookie.setHttpOnly(true);
+            cookie.setSecure(true);
+            cookie.setAttribute("SameSite", "None");
+            cookie.setPath("/");
+            cookie.setMaxAge(86400);
+            response.addCookie(cookie);
+            
+        	return ResponseEntity.ok(updatedUser);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+    
     /**
      * Endpoint to update an existing user by its ID.
      *
@@ -215,11 +252,21 @@ public class UserController {
      * @return              A ResponseEntity with a 200 OK status if successful, or a 404 Not Found status if the object does not exist.
      * 
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails, HttpServletResponse response) {
         try {
-            userService.updateUser(id, userDetails.getEmail());
-            return ResponseEntity.ok().build();
+        	User updatedUser = userService.updateUser(
+            	id,
+            	userDetails.getFirstName(),
+            	userDetails.getLastName(),
+            	userDetails.getDateOfBirth(),
+            	userDetails.getPhone(),
+             	userDetails.getEmail(),
+            	userDetails.getNewsletterSubscription()
+            );
+            
+        	return ResponseEntity.ok(updatedUser);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
@@ -229,14 +276,15 @@ public class UserController {
      * Endpoint to delete a user by its ID.
      *
      * @param id            The ID of the user to delete.
-     * @return              A ResponseEntity with a 204 No Content status if successful, or a 404 Not Found status if not.
+     * @return              A ResponseEntity with a 200 OK status if successful, or a 404 Not Found status if not.
      * 
      */
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteUser(@PathVariable Long id) {
         try {
             userService.deleteUser(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok(id);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

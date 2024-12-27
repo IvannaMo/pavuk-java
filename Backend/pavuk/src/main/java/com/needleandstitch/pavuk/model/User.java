@@ -2,7 +2,12 @@ package com.needleandstitch.pavuk.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.List;
 import org.hibernate.type.TrueFalseConverter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
@@ -13,7 +18,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -30,9 +34,9 @@ import jakarta.persistence.Table;
 @Table(name = "users")
 public class User {
      /**
-     * The unique identifier for the order.
+     * The unique identifier for the user.
      * <p>
-     * This is the primary key of the "orders" table, which is auto-generated.
+     * This is the primary key of the "user" table, which is auto-generated.
      * </p>
      */
 	@Id
@@ -113,14 +117,19 @@ public class User {
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
 	private Role role;
 	
-     /**
-     * The tailor chosen by the user.
-     * <p>
-     * This is a one-to-one relationship with the Tailor entity.
-     * </p>
-     */
-	@OneToOne(mappedBy = "user")
-    private Tailor tailor;
+	@JsonIgnore
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.getName()));
+    }
+	
+//     /**
+//     * The tailor chosen by the user.
+//     * <p>
+//     * This is a one-to-one relationship with the Tailor entity.
+//     * </p>
+//     */
+//	@OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE))
+//    private Tailor tailor;
 	
      /**
      * The status of the user.
@@ -169,7 +178,9 @@ public class User {
         /**
          * The user has been banned and cannot access the platform.
          */
-        BANNED
+        BANNED,
+        
+        REMOVED,
     }
 	
 	  /**
@@ -197,7 +208,7 @@ public class User {
         this.newsletterSubscription = newsletterSubscription;
         this.password = password;
         this.role = new Role();
-        this.tailor = null;
+//        this.tailor = null;
         this.status = Status.OFFLINE;
         this.registrationDate = LocalDateTime.now();
         this.onlineDate = null;
@@ -224,7 +235,7 @@ public class User {
         this.newsletterSubscription = newsletterSubscription;
         this.password = password;
         this.role = role;
-        this.tailor = null;
+//        this.tailor = null;
         this.status = Status.OFFLINE;
         this.registrationDate = LocalDateTime.now();
         this.onlineDate = null;
@@ -393,23 +404,23 @@ public class User {
         this.role = role;
     }
 
-    /**
-     * Gets the tailor of the user.
-     * 
-     * @return						User's tailor
-     */
-    public Tailor getTailor() {
-        return tailor;
-    }
-
-    /**
-     * Sets the status of the user.
-     * 
-     * @param tailor 				User's tailor to set
-     */
-    public void setTailor(Tailor tailor) {
-        this.tailor = tailor;
-    }
+//    /**
+//     * Gets the tailor of the user.
+//     * 
+//     * @return						User's tailor
+//     */
+//    public Tailor getTailor() {
+//        return tailor;
+//    }
+//
+//    /**
+//     * Sets the status of the user.
+//     * 
+//     * @param tailor 				User's tailor to set
+//     */
+//    public void setTailor(Tailor tailor) {
+//        this.tailor = tailor;
+//    }
 
     /**
      * Gets the status of the user.

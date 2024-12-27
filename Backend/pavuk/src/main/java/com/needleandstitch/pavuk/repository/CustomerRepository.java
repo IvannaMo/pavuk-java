@@ -21,5 +21,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
      * @param email 				The email of the user to find
      * @return						An Optional containing the found Customer if present, otherwise an empty Optional.
      */
+	Optional<Customer> findByUserId(Long id);
 	Optional<Customer> findByUserEmail(String email);
 }

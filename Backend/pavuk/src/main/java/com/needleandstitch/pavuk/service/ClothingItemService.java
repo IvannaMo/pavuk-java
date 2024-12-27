@@ -87,9 +87,8 @@ public class ClothingItemService {
      */
     @Transactional
     public ClothingItem createClothingItem(String name, String description, BigDecimal price, Set<Image> images, Category category) {
-        ClothingItem clothingItem = new ClothingItem(name, description, price, images, category);
-
-        return clothingItemRepository.save(clothingItem);
+        ClothingItem newClothingItem = new ClothingItem(name, description, price, images, category);
+        return clothingItemRepository.save(newClothingItem);
     }
 
      /**

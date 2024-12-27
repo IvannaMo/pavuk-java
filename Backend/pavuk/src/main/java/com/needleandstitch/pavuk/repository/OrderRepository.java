@@ -1,5 +1,6 @@
 package com.needleandstitch.pavuk.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.needleandstitch.pavuk.model.Order;
 
@@ -14,4 +15,6 @@ import com.needleandstitch.pavuk.model.Order;
  * @version                           1.0.0
  * @since                             15.12.2024
  */
-public interface OrderRepository extends JpaRepository<Order, Long> {}
+public interface OrderRepository extends JpaRepository<Order, Long> {
+	public List<Order> findByCustomerId(Long id);
+}

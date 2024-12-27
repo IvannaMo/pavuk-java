@@ -63,21 +63,28 @@ public class UserSeeder implements CommandLineRunner {
      */
     @Override
     public void run(String... args) throws Exception {
-        Role role = roleRepository.findByName("User").orElseGet(() -> {
-            return roleRepository.save(new Role("User"));
+    	Role adminRole = roleRepository.findByName("ROLE_ADMIN").orElseGet(() -> {
+            return roleRepository.save(new Role("ROLE_ADMIN"));
         });
-
-        if (role != null) {
+    	if (adminRole != null) {
+            userRepository.save(new User("Admin", "Doe", LocalDate.of(2000, 1, 1), "+380000000000",
+                    "admin@example.com", true, passwordEncoder.encode("12345678"), adminRole));
+    	}
+    	
+        Role userRole = roleRepository.findByName("ROLE_USER").orElseGet(() -> {
+            return roleRepository.save(new Role("ROLE_USER"));
+        });
+        if (userRole != null) {
             userRepository.save(new User("John", "Doe", LocalDate.of(2000, 1, 1), "+380000000000",
-                    "john.doe@example.com", true, passwordEncoder.encode("12345678"), role));
+                    "john.doe@example.com", true, passwordEncoder.encode("12345678"), userRole));
             userRepository.save(new User("Jane", "Doe", LocalDate.of(2004, 10, 1), "+380000000000",
-                    "jane.doe@example.com", true, passwordEncoder.encode("12345678"), role));
-            userRepository.save(new User("Bob", "Doe", LocalDate.of(2002, 8, 1), "+380000000000", "bob.doe@example.com",
-                    true, passwordEncoder.encode("12345678"), role));
+                    "jane.doe@example.com", true, passwordEncoder.encode("12345678"), userRole));
+            userRepository.save(new User("Bob", "Doe", LocalDate.of(2002, 8, 1), "+380000000000", 
+            		"bob.doe@example.com", true, passwordEncoder.encode("12345678"), userRole));
             userRepository.save(new User("Kate", "Doe", LocalDate.of(2001, 4, 1), "+380000000000",
-                    "kate.doe@example.com", true, passwordEncoder.encode("12345678"), role));
+                    "kate.doe@example.com", true, passwordEncoder.encode("12345678"), userRole));
             userRepository.save(new User("Alice", "Doe", LocalDate.of(2003, 6, 1), "+380000000000",
-                    "alice.doe@example.com", true, passwordEncoder.encode("12345678"), role));
+                    "alice.doe@example.com", true, passwordEncoder.encode("12345678"), userRole));
         }
     }
 }

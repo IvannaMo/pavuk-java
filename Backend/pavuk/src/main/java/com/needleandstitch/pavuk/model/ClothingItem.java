@@ -2,13 +2,19 @@ package com.needleandstitch.pavuk.model;
 
 import java.math.BigDecimal;
 import java.util.Set;
+
+import com.needleandstitch.pavuk.model.Order.Status;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -71,7 +77,7 @@ public class ClothingItem {
      * This is a many-to-many relationship.
      * </p>
      */
-    @OneToMany
+    @ManyToMany
     @JoinTable(
         name = "clothing_item_images",
         joinColumns = @JoinColumn(name = "clothing_item_id"),
@@ -97,6 +103,17 @@ public class ClothingItem {
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false)
     private Category category;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, columnDefinition = "VARCHAR(20) DEFAULT 'PENDING'", nullable = false)
+    private Status status;
+
+    public enum Status {
+        PENDING,
+        ACTIVE,
+        INACTIVE,
+        REMOVED;
+    }
 
     /**
      * Default constructor.
@@ -118,6 +135,7 @@ public class ClothingItem {
         this.price = price;
         this.images = images;
         this.category = category;
+        this.status = Status.PENDING;
     }
 
     /**
@@ -226,5 +244,13 @@ public class ClothingItem {
      */
     public void setCategory(Category category) {
         this.category = category;
+    }
+    
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

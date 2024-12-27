@@ -1,6 +1,7 @@
 package com.needleandstitch.pavuk.model;
 
 import java.util.Set;
+import org.springframework.security.core.GrantedAuthority;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +22,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "roles")
-public class Role {
+public class Role implements GrantedAuthority {
 
     /**
      * The unique identifier for the role.
@@ -99,5 +100,10 @@ public class Role {
      */
     public void setName(String name) {
         this.name = name;
+    }
+    
+    @Override
+    public String getAuthority() {
+        return name;
     }
 }

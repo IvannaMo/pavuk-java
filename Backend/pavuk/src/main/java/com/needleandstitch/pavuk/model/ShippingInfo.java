@@ -22,7 +22,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "shipping_info")
 public class ShippingInfo {
-
     /**
      * The unique identifier for the shipping information.
      * <p>

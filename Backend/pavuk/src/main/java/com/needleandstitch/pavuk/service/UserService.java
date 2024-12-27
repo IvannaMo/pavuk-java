@@ -5,13 +5,22 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.needleandstitch.pavuk.model.ClothingItem;
+import com.needleandstitch.pavuk.model.Customer;
+import com.needleandstitch.pavuk.model.Order;
 import com.needleandstitch.pavuk.model.Role;
 import com.needleandstitch.pavuk.model.User;
+import com.needleandstitch.pavuk.repository.ClothingItemRepository;
+import com.needleandstitch.pavuk.repository.CustomerRepository;
+import com.needleandstitch.pavuk.repository.OrderRepository;
 import com.needleandstitch.pavuk.repository.UserRepository;
 
 /**
@@ -42,6 +51,15 @@ public class UserService {
      */
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private CustomerRepository customerRepository;
+    
+    @Autowired
+    private OrderRepository orderRepository;
+    
+    @Autowired
+    private ClothingItemRepository clothingItemRepository;
 
     /**
      * Password encoder for hashing and verifying passwords using BCrypt.
@@ -142,10 +160,30 @@ public class UserService {
      * 
      */
     @Transactional
-    public void updateUser(Long id, String email) {
+    public User updateUser(Long id, String firstName, String lastName, LocalDate dateOfBirth, String phone, String email, Boolean newsletterSubscription) {
         User user = findById(id);
-        user.setEmail(email);
+
+        if (firstName != null && !firstName.isBlank()) {
+            user.setFirstName(firstName);
+        }
+        if (lastName != null && !lastName.isBlank()) {
+            user.setLastName(lastName);
+        }
+        if (dateOfBirth != null) {
+            user.setDateOfBirth(dateOfBirth);
+        }
+        if (phone != null && !phone.isBlank()) {
+            user.setPhone(phone);
+        }
+        if (email != null && !email.isBlank()) {
+            user.setEmail(email);
+        }
+        if (newsletterSubscription != null) {
+            user.setNewsletterSubscription(newsletterSubscription);
+        }   
         userRepository.save(user);
+        
+        return user;
     }
 
      /**
@@ -157,9 +195,24 @@ public class UserService {
      */
     @Transactional(isolation = Isolation.READ_COMMITTED)
     public void deleteUser(Long id) {
-        if (!userRepository.existsById(id)) {
-            throw new EntityNotFoundException("User not found: " + id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + id));
+        
+        Optional<Customer> customerOptional = customerRepository.findByUserId(id);
+        if (customerOptional.isPresent()) {
+        	Customer customer = customerOptional.get();
+	        List<Order> orders = orderRepository.findByCustomerId(customer.getId());
+	        for (Order order : orders) {
+	            order.setStatus(Order.Status.CANCELLED);
+	            orderRepository.save(order);
+	            
+	            ClothingItem clothingItem = order.getClothingItem();
+	            clothingItem.setStatus(ClothingItem.Status.REMOVED);
+	            clothingItemRepository.save(clothingItem);
+	        }
         }
-        userRepository.deleteById(id);
+        
+        user.setStatus(User.Status.REMOVED);
+        userRepository.save(user);
     }
 }

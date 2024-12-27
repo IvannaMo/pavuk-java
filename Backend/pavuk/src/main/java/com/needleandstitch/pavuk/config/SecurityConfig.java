@@ -22,7 +22,7 @@ import com.needleandstitch.pavuk.security.JwtFilter;
  * @since                           15.12.2024
  */
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity()
 public class SecurityConfig {
      /** 
       * The custom JWT filter used to validate and authenticate incoming requests. 
@@ -52,6 +52,7 @@ public class SecurityConfig {
         configuration.addAllowedOriginPattern("https://192.168.*.*:*");
         configuration.setAllowedOrigins(List.of("http://localhost:5173", "http://127.0.0.1:5173"));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
+//        configuration.setAllowedMethods(List.of("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);
         
@@ -77,9 +78,9 @@ public class SecurityConfig {
 			.csrf(csrf -> csrf.disable())
 			.authorizeHttpRequests(
 					authorizeRequests -> authorizeRequests
-					.requestMatchers("/users/current", "/users/sign-in", "/users/sign-up", "/clothing-items", "/images/**").permitAll()
+					.requestMatchers("/users/current", "/users/sign-in", "/users/sign-up", "/clothing-items").permitAll()
 					.anyRequest().authenticated())
-			.addFilterBefore(jwtFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);;
+			.addFilterBefore(jwtFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 		
 		return http.build();
 	}

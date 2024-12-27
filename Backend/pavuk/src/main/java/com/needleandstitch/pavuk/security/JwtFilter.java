@@ -1,7 +1,6 @@
 package com.needleandstitch.pavuk.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -80,9 +79,15 @@ public class JwtFilter extends OncePerRequestFilter {
             User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new EntityNotFoundException("User not found with email: " + email));
             
+//            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+//                    user, null, user.getAuthorities());
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            SecurityContextHolder.getContext().setAuthentication(
+//                    new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(user, null, new ArrayList<>())
+//            );
             SecurityContextHolder.getContext().setAuthentication(
-                    new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(user, null, new ArrayList<>())
-            );
+            		new org.springframework.security.authentication.UsernamePasswordAuthenticationToken(user, null, user.getAuthorities())
+	    	);
         }
 
         filterChain.doFilter(request, response);

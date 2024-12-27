@@ -10,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -26,7 +25,6 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "orders")
 public class Order {
-
     /**
      * The unique identifier for the order.
      * <p>
@@ -60,10 +58,10 @@ public class Order {
     /**
      * The shipping information for the order.
      * <p>
-     * This is a one-to-one relationship with the ShippingInfo entity.
+     * This is a many-to-one relationship with the ShippingInfo entity.
      * </p>
      */
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "shipping_info_id", nullable = false)
     private ShippingInfo shippingInfo;
 

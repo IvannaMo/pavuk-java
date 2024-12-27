@@ -1,7 +1,6 @@
 package com.needleandstitch.pavuk.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.needleandstitch.pavuk.model.ClothingItem;
 import com.needleandstitch.pavuk.service.ClothingItemService;
-
 import jakarta.persistence.EntityNotFoundException;
 
 /**
@@ -88,16 +85,16 @@ public class ClothingItemController {
      * @return               A ResponseEntity with a 201 Created status if successful.
      * 
      */
-    @PostMapping
-    public ResponseEntity<Void> createClothingItem(@RequestBody ClothingItem clothingItem) {
-        clothingItemService.createClothingItem(
-                clothingItem.getName(),
-                clothingItem.getDescription(),
-                clothingItem.getPrice(),
-                clothingItem.getImages(),
-                clothingItem.getCategory()
+    @PostMapping("/create")
+    public ResponseEntity<ClothingItem> createClothingItem(@RequestBody ClothingItem clothingItem) {
+    	ClothingItem newClothingItem = clothingItemService.createClothingItem(
+           	clothingItem.getName(),
+          	clothingItem.getDescription(),
+       	    clothingItem.getPrice(),
+        	clothingItem.getImages(),
+        	clothingItem.getCategory()
         );
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+        return ResponseEntity.status(HttpStatus.CREATED).body(newClothingItem);
     }
 
     /**
