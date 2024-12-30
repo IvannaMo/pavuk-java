@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -119,14 +120,15 @@ public class ClothingItemController {
      * Endpoint to delete a clothing item by its ID.
      *
      * @param id            The ID of the clothing item to delete.
-     * @return              A ResponseEntity with a 204 No Content status if successful, or a 404 Not Found status if not.
+     * @return              A ResponseEntity with a 200 OK status if successful, or a 404 Not Found status if not.
      * 
      */
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteClothingItem(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteClothingItem(@PathVariable Long id) {
         try {
             clothingItemService.deleteClothingItem(id);
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok(id);
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

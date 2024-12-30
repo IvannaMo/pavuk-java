@@ -279,7 +279,7 @@ public class UserController {
      * @return              A ResponseEntity with a 200 OK status if successful, or a 404 Not Found status if not.
      * 
      */
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Long> deleteUser(@PathVariable Long id) {
         try {

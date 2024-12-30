@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.needleandstitch.pavuk.model.Category;
 import com.needleandstitch.pavuk.model.ClothingItem;
 import com.needleandstitch.pavuk.model.Image;
+import com.needleandstitch.pavuk.model.ClothingItem.Status;
 import com.needleandstitch.pavuk.repository.CategoryRepository;
 import com.needleandstitch.pavuk.repository.ClothingItemRepository;
 import com.needleandstitch.pavuk.repository.ImageRepository;
@@ -75,10 +76,14 @@ public class ClothingItemSeeder implements CommandLineRunner {
         tShirtImages.add(tShirtImage);
 
         if (clothingItemRepository.findByName("Футболка").isEmpty()) {
-            clothingItemRepository.save(new ClothingItem("Футболка", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", BigDecimal.valueOf(500), tShirtImages, tShirtCategory));
+        	ClothingItem tShirt = new ClothingItem("Футболка", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", BigDecimal.valueOf(500), tShirtImages, tShirtCategory);
+        	tShirt.setStatus(Status.ACTIVE);
+        	clothingItemRepository.save(tShirt);
         }
         if (clothingItemRepository.findByName("Футболка 1").isEmpty()) {
-            clothingItemRepository.save(new ClothingItem("Футболка 1", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", BigDecimal.valueOf(500), tShirtImages, tShirtCategory));
+        	ClothingItem tShirt1 = new ClothingItem("Футболка 1", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", BigDecimal.valueOf(750), tShirtImages, tShirtCategory);
+        	tShirt1.setStatus(Status.ACTIVE);
+        	clothingItemRepository.save(tShirt1);
         }
     }
 }

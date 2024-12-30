@@ -3,19 +3,18 @@ package com.needleandstitch.pavuk.service;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.PersistenceContext;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.needleandstitch.pavuk.model.Category;
 import com.needleandstitch.pavuk.model.ClothingItem;
 import com.needleandstitch.pavuk.model.Image;
+import com.needleandstitch.pavuk.model.Order;
 import com.needleandstitch.pavuk.repository.ClothingItemRepository;
+import com.needleandstitch.pavuk.repository.OrderRepository;
 
 /**
  * Service layer for managing clothing items.
@@ -45,6 +44,9 @@ public class ClothingItemService {
     @Autowired
     private ClothingItemRepository clothingItemRepository;
 
+    @Autowired
+    private OrderRepository orderRepository;
+    
      /**
      * EntityManager used for interacting with the persistence context.
      */
@@ -124,9 +126,18 @@ public class ClothingItemService {
      */
     @Transactional
     public void deleteClothingItem(Long id) {
-        if (!clothingItemRepository.existsById(id)) {
-            throw new EntityNotFoundException("ClothingItem not found: " + id);
-        }
-        clothingItemRepository.deleteById(id);
+    	ClothingItem clothingItem = clothingItemRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("ClothingItem not found: " + id));
+        
+    	List<Order> orders = orderRepository.findByClothingItemId(clothingItem.getId());
+    	if (!orders.isEmpty()) {
+	    	for (Order order : orders) {
+	            order.setStatus(Order.Status.CANCELLED);
+	            orderRepository.save(order);
+	        }
+    	}
+        
+        clothingItem.setStatus(ClothingItem.Status.REMOVED);
+        clothingItemRepository.save(clothingItem);
     }
 }

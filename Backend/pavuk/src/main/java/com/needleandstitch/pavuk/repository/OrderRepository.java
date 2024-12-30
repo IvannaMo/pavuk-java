@@ -17,4 +17,5 @@ import com.needleandstitch.pavuk.model.Order;
  */
 public interface OrderRepository extends JpaRepository<Order, Long> {
 	public List<Order> findByCustomerId(Long id);
+	public List<Order> findByClothingItemId(Long id);
 }

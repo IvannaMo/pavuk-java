@@ -2,9 +2,6 @@ package com.needleandstitch.pavuk.model;
 
 import java.math.BigDecimal;
 import java.util.Set;
-
-import com.needleandstitch.pavuk.model.Order.Status;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
