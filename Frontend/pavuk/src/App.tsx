@@ -14,6 +14,8 @@ import EditUser from "./pages/user-account/EditUser";
 import ClothingItemCustomization from "./pages/clothing-items/ClothingItemCustomization";
 import OrderConfirmation from "./pages/orders/OrderConfirmation";
 import CreateUser from "./pages/user-account/CreateUser";
+import CreateClothingItem from "./pages/user-account/CreateClothingItem";
+import EditClothingItem from "./pages/user-account/EditClothingItem";
 import "./App.css";
 
 
@@ -36,6 +38,8 @@ function App() {
         <Route path="/create-user" element={<ProtectedAdminUserRoute><CreateUser /></ProtectedAdminUserRoute>} />
         <Route path="/edit-user" element={<ProtectedUserRoute><EditCurrentUser /></ProtectedUserRoute>} />
         <Route path="/edit-user/:userId" element={<ProtectedAdminUserRoute><EditUser /></ProtectedAdminUserRoute>} />
+        <Route path="/create-clothing-item" element={<ProtectedAdminUserRoute><CreateClothingItem /></ProtectedAdminUserRoute>} />
+        <Route path="/edit-clothing-item/:clothingItemId" element={<ProtectedUserRoute><EditClothingItem /></ProtectedUserRoute>} />
       </Routes>
     </BrowserRouter>
   );

@@ -24,6 +24,8 @@ function ClothingItemsGallery() {
     }
   }, []);
 
+  const activeClothingItems = clothingItems.filter((clothingItem) => clothingItem.status === "ACTIVE");
+
   const sortHandler = (clothingItems: Array<ClothingItemType>): Array<ClothingItemType> => {
     switch (sortOption) {
       case "priceAsc":
@@ -37,7 +39,7 @@ function ClothingItemsGallery() {
     }
   }
 
-  const sortedClothingItems = sortHandler(clothingItems);
+  const sortedClothingItems = sortHandler(activeClothingItems);
 
   return (
     <section className="clothing-gallery-section pt-11 pb-14">

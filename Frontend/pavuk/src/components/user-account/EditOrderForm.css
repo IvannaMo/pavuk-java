@@ -1,0 +1,36 @@
+.edit-order-form-container {
+    display: flex;
+    justify-content: center;
+    background-color: #eef1f4;
+}
+
+.edit-order-form {
+    position: relative;
+    background-color: white;
+    border-radius: 30px;
+}
+
+.edit-order-form-title {
+    font-family: "Gilroy Bold";
+    color: #3F3F3F;
+}
+
+.edit-order-form-label {
+    font-family: "Gilroy SemiBold";
+    color: #7f7f8f;
+}
+
+.edit-order-form-field {
+    display: block;
+    width: 100%;
+    background-color: #F2F4F7;
+    border-radius: 9px;
+    font-family: "Gilroy SemiBold";
+    color: #afb2be;
+    outline: none;
+}
+
+.edit-order-form-field-error {
+    font-family: "Gilroy SemiBold";
+    color: #d15050;
+}

@@ -1,5 +1,4 @@
 import RoleType from "./role-type";
-import TailorType from "./tailor-type";
 
 
 type UserType = {
@@ -11,7 +10,6 @@ type UserType = {
   email: string,
   newsletterSubscription: boolean,
   role: RoleType;
-  tailor?: TailorType;
   status: "ONLINE" | "IDLE" | "OFFLINE" | "BANNED" | "REMOVED",
   registrationDate: string;
   onlineDate?: string;

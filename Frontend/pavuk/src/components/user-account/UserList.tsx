@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../state/store";
 import { useEffect, useRef } from "react";
-import { checkAuthentication, getUsers, removeUser } from "../../state/users/users-slice";
+import { getUsers, removeUser } from "../../state/users/users-slice";
 import { Link, useNavigate } from "react-router-dom";
 import AdminUserType from "../../types/admin-user-type";
 import formatDate from "../../utils/formatDate";
@@ -45,37 +45,46 @@ function UserList() {
         <table className="user-list w-full">
           <thead className="user-list-thead">
             <tr>
-              <th className="user-list-th px-8 py-2 text-left text-sm">ID</th>
-              <th className="user-list-th px-8 py-2 text-left text-sm">Ім'я</th>
-              <th className="user-list-th px-8 py-2 text-left text-sm">Прізвище</th>
-              <th className="user-list-th px-8 py-2 text-left text-sm">Дата народження</th>
-              <th className="user-list-th px-8 py-2 text-left text-sm">Телефон</th>
-              <th className="user-list-th px-8 py-2 text-left text-sm">Email</th>
-              <th className="user-list-th px-8 py-2 text-left text-sm">Підписка на розсилку</th>
-              <th className="px-5 py-5"></th>
-              <th className="px-5 py-5"></th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">ID</th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">Ім'я</th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">Прізвище</th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">Дата народження</th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">Телефон</th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">Email</th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">Підписка на розсилку</th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">Роль</th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">Статус</th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">Дата останнього входу</th>
+              <th className="user-list-th px-6 py-2 text-left text-sm">Дата реєстрації</th>
+
+              <th className="pl-8 py-5"></th>
+              <th className="pl-1.5 pr-5 py-5"></th>
               </tr>
           </thead>
           <tbody>
             {filteredUsers?.map((user: AdminUserType) => {
               const userListTr = user.status !== "REMOVED" ? "user-list-tr" : "user-list-tr-removed";
-              return(
+              return (
                 <tr key={user.id} className={userListTr}>
-                  <td className="user-list-td px-8 py-2 text-sm">{user.id}</td>
-                  <td className="user-list-td px-8 py-2 text-sm">{user.firstName}</td>
-                  <td className="user-list-td px-8 py-2 text-sm">{user.lastName}</td>
-                  <td className="user-list-td px-8 py-2 text-sm">{formatDate(user.dateOfBirth)}</td>
-                  <td className="user-list-td px-8 py-2 text-sm">{user.phone}</td>
-                  <td className="user-list-td px-8 py-2 text-sm">{user.email}</td>
-                  <td className="user-list-td px-8 py-2 text-sm">{user.newsletterSubscription ? "+" : "-"}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{user.id}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{user.firstName}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{user.lastName}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{formatDate(user.dateOfBirth)}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{user.phone}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{user.email}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{user.newsletterSubscription ? "+" : "-"}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{user.role.name}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{user.status}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{user.onlineDate}</td>
+                  <td className="user-list-td px-6 py-2 text-sm">{user.registrationDate}</td>
                   
                   {user.status !== "REMOVED" && (
                     <>
-                      <td className="user-list-td">
+                      <td className="user-list-td pl-8">
                         <button className="user-list-edit-user-button px-1 py-1 w-9 text-sm" onClick={() => editUserHandler(user.id)}>✎</button>
                       </td>
-                      <td className="user-list-td">
-                        <button className="user-list-remove-user-button ml-1 mr-8 px-1 py-1 w-9 text-sm" onClick={() => removeUserHandler(user.id)}>✖</button>
+                      <td className="user-list-td pl-1.5 pr-5">
+                        <button className="user-list-remove-user-button px-1 py-1 w-9 text-sm" onClick={() => removeUserHandler(user.id)}>✖</button>
                       </td>
                     </>
                   )}

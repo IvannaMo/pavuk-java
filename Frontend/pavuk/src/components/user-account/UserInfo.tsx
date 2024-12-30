@@ -5,8 +5,9 @@ import { useState } from "react";
 import { signOutUser } from "../../state/users/users-slice";
 import userAccountDefaultPhoto from "../../assets/images/user-account-photos/user-account-default-photo.jpg";
 import formatDate from "../../utils/formatDate";
-import "./UserInfo.css";
 import UserList from "./UserList";
+import ClothingItemList from "./ClothingItemList";
+import "./UserInfo.css";
 
 
 function UserInfo() {
@@ -74,7 +75,7 @@ function UserInfo() {
       title: "Список товарів",
       content: (
         <div className="h-full w-full">
-          {/* <ProductList /> */}
+          <ClothingItemList />
         </div>
       ),
     },

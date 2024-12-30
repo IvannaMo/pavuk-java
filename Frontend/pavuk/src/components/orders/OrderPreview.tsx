@@ -1,42 +1,11 @@
 import { useLocation } from "react-router-dom";
-import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../state/store";
-import { createOrder } from "../../state/orders/orders-slice";
-import ProductType from "../../types/clothing-item-type";
-import "./OrderPreview.css";
 import OrderType from "../../types/order-type";
+import "./OrderPreview.css";
 
 
 function OrderPreview() {
-  // const dispatch = useDispatch<AppDispatch>();
-  // const currentUser = useSelector((state: RootState) => state.users.currentUser);
   const location = useLocation();
-  // const { product } = location.state as { product: ProductType };
-  // const effectRan = useRef(false);
   const { order } = location.state as { order: OrderType };
-
-  // useEffect(() => {
-  //   if (effectRan.current === false) {
-  //     const orderData: any = {
-  //       productId: product.id,
-  //       clientId: currentUser.id,
-  //       seamstressId: "",
-  //       price: product.price,
-  //       imageUrl: product.imageUrl,
-  //       notes: "",
-  //       orderDate: new Date().toISOString(),
-  //       confirmDate: "",
-  //       isActive: true
-  //     };
-
-  //     dispatch(createOrder(orderData));
-
-  //     return () => {
-  //       effectRan.current = true;
-  //     }
-  //   }
-  // }, []);
 
   return (
     <section className="order-preview-section pt-11 pb-14">

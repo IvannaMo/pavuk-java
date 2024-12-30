@@ -13,7 +13,7 @@ export const getOrders = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await axios.get(
-        import.meta.env.VITE_SERVER_PATH + "orders",
+        `${import.meta.env.VITE_SERVER_PATH}orders`,
         { withCredentials: true }
       );
 

@@ -12,9 +12,14 @@ export const getClothingItems = createAsyncThunk(
   "clothingItems/getClothingItems",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get(`${import.meta.env.VITE_SERVER_PATH}clothing-items`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER_PATH}clothing-items`,
+        { withCredentials: true }
+      );
 
-      return res.data as ClothingItemType[];
+      if (response.status === 200) {
+        return response.data as ClothingItemType[];
+      }
     } 
     catch (error: any) {
       return rejectWithValue(error.message);
@@ -27,7 +32,7 @@ export const createClothingItem = createAsyncThunk(
   async (data: ClothingItemType, { rejectWithValue }) => {
     try {
       const response = await axios.post(
-        import.meta.env.VITE_SERVER_PATH + "products",
+        `${import.meta.env.VITE_SERVER_PATH}clothing-items/create`,
         data
       );
 
@@ -43,13 +48,17 @@ export const createClothingItem = createAsyncThunk(
 
 export const editClothingItem = createAsyncThunk(
   "clothingItems/editClothingItem",
-  async (editedProduct: ClothingItemType, { rejectWithValue }) => {
+  async (editedClothingItem: ClothingItemType, { rejectWithValue }) => {
       try {
-        const res = await axios.put(
-            `${import.meta.env.VITE_SERVER_PATH}products/${editedProduct.id}`, 
-            editedProduct
+        const response = await axios.put(
+          `${import.meta.env.VITE_SERVER_PATH}clothing-items/${editedClothingItem.id}`, 
+          editedClothingItem,
+          { withCredentials: true }
         );
-        return res.data as ClothingItemType;
+
+        if (response.status === 200) {
+          return response.data as ClothingItemType;
+        }
       } 
       catch (error: any) {
         return rejectWithValue(error.message);
@@ -59,10 +68,16 @@ export const editClothingItem = createAsyncThunk(
 
 export const removeClothingItem = createAsyncThunk(
   "clothingItems/removeClothingItem",
-  async (productId: string, { rejectWithValue }) => {
+  async (clothingItemId: string, { rejectWithValue }) => {
     try {
-      await axios.delete(`${import.meta.env.VITE_SERVER_PATH}products/${productId}`);
-      return productId; 
+      const response = await axios.delete(
+        `${import.meta.env.VITE_SERVER_PATH}clothing-items/${clothingItemId}`,
+        { withCredentials: true }
+      );
+      
+      if (response.status === 200) {
+        return response.data as string;
+      }
     } 
     catch (error: any) {
       return rejectWithValue(error.message);
@@ -103,9 +118,12 @@ const productsSlice = createSlice({
     .addCase(editClothingItem.fulfilled, (state, action) => {
       console.log("editClothingItem success");
       const updatedClothingItem = action.payload;
-      state.clothingItems = state.clothingItems.map((clothingItem: ClothingItemType) =>
-        clothingItem.id === updatedClothingItem.id ? updatedClothingItem : clothingItem
-      );
+
+      if (updatedClothingItem) {
+        state.clothingItems = state.clothingItems.map((clothingItem: ClothingItemType) =>
+          clothingItem.id === updatedClothingItem.id ? updatedClothingItem : clothingItem
+        );
+      }
     })
     .addCase(editClothingItem.rejected, (state, action) => {
       console.log("editClothingItem rejected");
@@ -115,9 +133,7 @@ const productsSlice = createSlice({
     })
     .addCase(removeClothingItem.fulfilled, (state, action) => {
       console.log("removeClothingItem success");
-      state.clothingItems = state.clothingItems.filter((clothingItem: ClothingItemType) => 
-        clothingItem.id !== action.payload
-      );
+      state.clothingItems = state.clothingItems.filter((clothingItem: ClothingItemType) => clothingItem.id !== action.payload);
     })
     .addCase(removeClothingItem.rejected, (state, action) => {
       console.log("removeClothingItem rejected");
