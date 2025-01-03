@@ -43,34 +43,18 @@ public class ColorSeeder implements CommandLineRunner {
      */
     @Override
     public void run(String... args) throws Exception {
-    	if (colorRepository.findByHex("#f9f9f9").isEmpty()) {
-    		colorRepository.save(new Color("#f9f9f9"));
-    	}
-    	if (colorRepository.findByHex("#e6e7e8").isEmpty()) {
-    		colorRepository.save(new Color("#e6e7e8"));
-    	}
-    	if (colorRepository.findByHex("#d3d5d7").isEmpty()) {
-    		colorRepository.save(new Color("#d3d5d7"));
-    	}
+    	String[] hexColors = {
+    			"#f9f9f9", "#e6e7e8", "#d3d5d7", "#97c682", "#7dc060", 
+    	        "#505050", "#3d3d3d", "#202221", "#d15050", "#d5bdf3", 
+    	        "#b4e0f8", "#ffe9a0", "#ffdd5c", "#ffaa4e", "#ffb3b3", 
+    	        "#ffcd82", "#b2ece1", "#6c99f5", "#5e5ed8", "#9959c8", 
+    	        "#f87f98", "#91573b", "#533529", "#ede0c8", "#d7c4a4"
+    	    };
     	
-    	if (colorRepository.findByHex("#97c682").isEmpty()) {
-    		colorRepository.save(new Color("#97c682"));
-    	}
-    	if (colorRepository.findByHex("#648a61").isEmpty()) {
-    		colorRepository.save(new Color("#648a61"));
-    	}
-    	if (colorRepository.findByHex("#445a57").isEmpty()) {
-    		colorRepository.save(new Color("#445a57"));
-    	}
-    	
-    	if (colorRepository.findByHex("#505050").isEmpty()) {
-    		colorRepository.save(new Color("#505050"));
-    	}
-    	if (colorRepository.findByHex("#3d3d3d").isEmpty()) {
-    		colorRepository.save(new Color("#3d3d3d"));
-    	}
-    	if (colorRepository.findByHex("#202221").isEmpty()) {
-    		colorRepository.save(new Color("#202221"));
-    	}
+    	for (String hex : hexColors) {
+            if (colorRepository.findByHex(hex).isEmpty()) {
+                colorRepository.save(new Color(hex));
+            }
+        }
     }
 }

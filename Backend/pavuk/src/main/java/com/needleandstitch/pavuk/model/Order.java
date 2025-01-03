@@ -111,7 +111,7 @@ public class Order {
         /**
          * The order has been cancelled.
          */
-        CANCELLED;
+        CANCELLED,
     }
 
     /**

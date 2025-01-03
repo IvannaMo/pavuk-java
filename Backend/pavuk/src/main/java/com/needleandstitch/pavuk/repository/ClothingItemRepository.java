@@ -1,6 +1,6 @@
 package com.needleandstitch.pavuk.repository;
 
-import java.util.Optional;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import com.needleandstitch.pavuk.model.ClothingItem;
 
@@ -21,5 +21,5 @@ public interface ClothingItemRepository extends JpaRepository<ClothingItem, Long
      * @param name 					  The name of the clothing item to find
      * @return						  An Optional containing the found Category if present, otherwise an empty Optional.
      */
-	public Optional<ClothingItem> findByName(String name);
+	public List<ClothingItem> findByName(String name);
 }

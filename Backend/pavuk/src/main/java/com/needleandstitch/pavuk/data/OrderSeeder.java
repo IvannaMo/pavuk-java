@@ -1,5 +1,7 @@
 package com.needleandstitch.pavuk.data;
 
+import java.util.List;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -74,13 +76,17 @@ public class OrderSeeder implements CommandLineRunner {
         Customer customer = customerRepository.findByUserEmail("john.doe@example.com")
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found: john.doe@example.com"));
 
-        ClothingItem clothingItem = clothingItemRepository.findByName("Футболка")
-                .orElseThrow(() -> new EntityNotFoundException("ClothingItem not found: Футболка"));
-
+        List<ClothingItem> clothingItems = clothingItemRepository.findByName("Футболка");
+        if (clothingItems.isEmpty()) {
+            throw new EntityNotFoundException("ClothingItems not found: Футболка");
+        }
+        
         ShippingInfo shippingInfo = shippingInfoRepository.findByPostalCode("65001")
                 .orElseThrow(() -> new EntityNotFoundException("ShippingInfo not found: 65001"));
 
-        com.needleandstitch.pavuk.model.Order order = new com.needleandstitch.pavuk.model.Order(customer, clothingItem, shippingInfo);
-        orderRepository.save(order);
+        for (ClothingItem clothingItem : clothingItems) {
+            com.needleandstitch.pavuk.model.Order order = new com.needleandstitch.pavuk.model.Order(customer, clothingItem, shippingInfo);
+            orderRepository.save(order);
+        }
     }
 }

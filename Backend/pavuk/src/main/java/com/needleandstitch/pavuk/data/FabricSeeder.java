@@ -1,6 +1,8 @@
 package com.needleandstitch.pavuk.data;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -64,27 +66,31 @@ public class FabricSeeder implements CommandLineRunner {
      */
     @Override
     public void run(String... args) throws Exception {
-    	Color color1 = colorRepository.findByHex("#f9f9f9")
-                .orElseThrow(() -> new EntityNotFoundException("Color not found: #f9f9f9"));
-    	Color color2 = colorRepository.findByHex("#e6e7e8")
-                .orElseThrow(() -> new EntityNotFoundException("Color not found: #e6e7e8"));
-    	Color color3 = colorRepository.findByHex("#d3d5d7")
-                .orElseThrow(() -> new EntityNotFoundException("Color not found: #d3d5d7"));
+    	List<String> colorHexValues = Arrays.asList(
+    	        "#f9f9f9", "#e6e7e8", "#d3d5d7", "#97c682", "#7dc060", 
+    	        "#505050", "#3d3d3d", "#202221", "#d15050", "#d5bdf3", 
+    	        "#b4e0f8", "#ffe9a0", "#ffdd5c", "#ffaa4e", "#ffb3b3", 
+    	        "#ffcd82", "#b2ece1", "#6c99f5", "#5e5ed8", "#9959c8", 
+    	        "#f87f98", "#91573b", "#533529", "#ede0c8", "#d7c4a4"
+    	    );
     	
+        Set<Color> fabricColors = new HashSet<>();
+        for (String hex : colorHexValues) {
+            fabricColors.add(
+                colorRepository.findByHex(hex)
+                    .orElseThrow(() -> new EntityNotFoundException("Color not found: " + hex))
+            );
+        }
+        
         Image fabric1Image = imageRepository.findByName("fabric1")
                 .orElseThrow(() -> new EntityNotFoundException("Image not found: fabric1"));
         Image fabric2Image = imageRepository.findByName("fabric2")
                 .orElseThrow(() -> new EntityNotFoundException("Image not found: fabric2"));
-    			
-        Set<Color> fabricColors = new HashSet<>();
-        fabricColors.add(color1);
-        fabricColors.add(color2);
-        fabricColors.add(color3);
         
-    	if (fabricRepository.findByName("#fabric1").isEmpty()) {
+    	if (fabricRepository.findByName("fabric1").isEmpty()) {
     		fabricRepository.save(new Fabric("fabric1", fabric1Image, fabricColors));
     	}
-    	if (fabricRepository.findByName("#fabric2").isEmpty()) {
+    	if (fabricRepository.findByName("fabric2").isEmpty()) {
     		fabricRepository.save(new Fabric("fabric2", fabric2Image, fabricColors));
     	}
     }

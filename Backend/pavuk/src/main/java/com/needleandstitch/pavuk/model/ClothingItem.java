@@ -47,7 +47,7 @@ public class ClothingItem {
      * and must be unique.
      * </p>
      */
-    @Column(length = 100, nullable = false, unique = true)
+    @Column(length = 100, nullable = false)
     private String name;
 
     /**
@@ -102,14 +102,23 @@ public class ClothingItem {
     private Category category;
     
     @Enumerated(EnumType.STRING)
+    @Column(length = 20, columnDefinition = "VARCHAR(20) DEFAULT 'BASIC'", nullable = false)
+    private Type type;
+    
+    @Enumerated(EnumType.STRING)
     @Column(length = 20, columnDefinition = "VARCHAR(20) DEFAULT 'PENDING'", nullable = false)
     private Status status;
 
+    public enum Type {
+        BASIC,
+        USER,
+    }
+    
     public enum Status {
         PENDING,
         ACTIVE,
         INACTIVE,
-        REMOVED;
+        REMOVED,
     }
 
     /**
@@ -132,7 +141,17 @@ public class ClothingItem {
         this.price = price;
         this.images = images;
         this.category = category;
+        this.type = Type.BASIC;
         this.status = Status.PENDING;
+    }
+    
+    public ClothingItem(String name, String description, BigDecimal price, Set<Image> images, Category category, Type type) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.images = images;
+        this.category = category;
+        this.type = type;
     }
 
     /**
@@ -241,6 +260,14 @@ public class ClothingItem {
      */
     public void setCategory(Category category) {
         this.category = category;
+    }
+    
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
     
     public Status getStatus() {

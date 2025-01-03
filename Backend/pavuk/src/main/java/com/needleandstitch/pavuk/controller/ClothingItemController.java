@@ -93,7 +93,8 @@ public class ClothingItemController {
           	clothingItem.getDescription(),
        	    clothingItem.getPrice(),
         	clothingItem.getImages(),
-        	clothingItem.getCategory()
+        	clothingItem.getCategory(),
+        	clothingItem.getType()
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(newClothingItem);
     }

@@ -13,6 +13,8 @@ import com.needleandstitch.pavuk.model.Category;
 import com.needleandstitch.pavuk.model.ClothingItem;
 import com.needleandstitch.pavuk.model.Image;
 import com.needleandstitch.pavuk.model.Order;
+import com.needleandstitch.pavuk.model.ClothingItem.Status;
+import com.needleandstitch.pavuk.model.ClothingItem.Type;
 import com.needleandstitch.pavuk.repository.ClothingItemRepository;
 import com.needleandstitch.pavuk.repository.OrderRepository;
 
@@ -88,8 +90,9 @@ public class ClothingItemService {
      * @return                  The created clothing item
      */
     @Transactional
-    public ClothingItem createClothingItem(String name, String description, BigDecimal price, Set<Image> images, Category category) {
-        ClothingItem newClothingItem = new ClothingItem(name, description, price, images, category);
+    public ClothingItem createClothingItem(String name, String description, BigDecimal price, Set<Image> images, Category category, Type type) {
+        ClothingItem newClothingItem = new ClothingItem(name, description, price, images, category, type);
+        newClothingItem.setStatus(Status.ACTIVE);
         return clothingItemRepository.save(newClothingItem);
     }
 
