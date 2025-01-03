@@ -9,10 +9,10 @@ type UserType = {
   phone: string,
   email: string,
   newsletterSubscription: boolean,
-  role: RoleType;
+  role: RoleType,
   status: "ONLINE" | "IDLE" | "OFFLINE" | "BANNED" | "REMOVED",
-  registrationDate: string;
-  onlineDate?: string;
+  registrationDate: string,
+  onlineDate?: string,
 };
 
 export default UserType;

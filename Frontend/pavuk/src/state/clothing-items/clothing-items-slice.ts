@@ -33,7 +33,8 @@ export const createClothingItem = createAsyncThunk(
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_SERVER_PATH}clothing-items/create`,
-        data
+        data,
+        { withCredentials: true }
       );
 
       if (response.status === 201) {

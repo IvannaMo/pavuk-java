@@ -24,7 +24,7 @@ function ClothingItemsGallery() {
     }
   }, []);
 
-  const activeClothingItems = clothingItems.filter((clothingItem) => clothingItem.status === "ACTIVE");
+  const activeClothingItems = clothingItems.filter((clothingItem) => clothingItem.status === "ACTIVE" && clothingItem.type === "BASIC");
 
   const sortHandler = (clothingItems: Array<ClothingItemType>): Array<ClothingItemType> => {
     switch (sortOption) {

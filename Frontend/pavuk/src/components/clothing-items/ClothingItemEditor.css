@@ -3,23 +3,61 @@
     justify-content: center;
     height: 100%;
     margin-top: 84px;
-    background-color: #F0F0F1;
     position: relative;
 }
 
 .clothing-editor {
     position: relative;
     display: flex;
+    background-color: #F0F0F1;
+    overflow: hidden;
+}
+
+#clothing-editor-image-overlay {
+    mix-blend-mode: overlay;
+}
+
+#clothing-editor-image {
+    display: flex;
+    align-items: center;
+    aspect-ratio: 1/1;
+    height: 100%;
+}
+
+.clothing-editor-order-creation {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     background-color: white;
     border-radius: 30px;
     overflow: hidden;
 }
 
-.clothing-editor-image {
-    aspect-ratio: 1/1;
-    height: 100%;
-    background-color: white;
+.clothing-editor-tools-heading {
+    font-family: "Gilroy Bold";
+    color: #3C3D42;
+}
+
+.clothing-editor-clothing-part-container, .clothing-editor-fabric-container, .clothing-editor-color-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.clothing-editor-clothing-part, .clothing-editor-fabric, .clothing-editor-color {
+    background-color: #d3d5d7;
+    border: 3px #A5A7AA solid;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.clothing-editor-fabric {
     object-fit: contain;
+    box-sizing: border-box;
+}
+
+.clothing-editor-clothing-part-selected, .clothing-editor-fabric-selected, .clothing-editor-color-selected {
+    border: 3px #79B076 solid;
 }
 
 .clothing-editor-heading {

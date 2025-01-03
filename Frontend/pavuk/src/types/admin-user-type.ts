@@ -2,7 +2,7 @@ import UserType from "./user-type";
 
 
 type AdminUserType = Omit<UserType, "id"> & {
-  id: string;
+  id: string,
 };
 
 export default AdminUserType;
