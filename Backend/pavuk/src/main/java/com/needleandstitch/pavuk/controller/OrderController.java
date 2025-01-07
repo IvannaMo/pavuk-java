@@ -53,4 +53,14 @@ public class OrderController {
         );
         return ResponseEntity.status(HttpStatus.CREATED).body(newOrder);
     }
+
+    @GetMapping("/customer/{customerId}")
+    public ResponseEntity<List<Order>> getOrdersByCustomerId(@PathVariable Long customerId) {
+        try {
+            List<Order> orders = orderService.findByCustomerId(customerId);
+            return ResponseEntity.ok(orders);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
 }
