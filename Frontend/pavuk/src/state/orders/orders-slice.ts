@@ -25,6 +25,24 @@ export const getOrders = createAsyncThunk(
   }
 );
 
+export const getOrdersByCustomer = createAsyncThunk(
+  "orders/getOrdersByCustomer",
+  async (customerId: string, { rejectWithValue }) => {
+    try {
+      const res = await axios.get(
+        `${import.meta.env.VITE_SERVER_PATH}orders/customer/${customerId}`,
+        { withCredentials: true }
+      );
+      // console.log(res.data);
+      // console.log(`${import.meta.env.VITE_SERVER_PATH}orders/customer/${customerId}`);
+      return res.data as OrderType[];
+
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 export const createOrder = createAsyncThunk(
   "orders/createOrder",
   async (data: any, { rejectWithValue }) => {
@@ -34,7 +52,8 @@ export const createOrder = createAsyncThunk(
         data,
         { withCredentials: true }
       );
-
+      console.log("response data:");
+      console.log(response.data);
       if (response.status === 201) {
         return response.data as OrderType;
       }
@@ -101,6 +120,16 @@ const ordersSlice = createSlice({
     .addCase(createOrder.rejected, (state, action) => {
       console.log("createOrder rejected");
     })
+    .addCase(getOrdersByCustomer.pending, (state) => {
+      console.log("getOrdersByCustomer pending");
+    })
+    .addCase(getOrdersByCustomer.fulfilled, (state, action) => {
+      console.log("getOrdersByCustomer success");
+      state.orders = action.payload;
+    })
+    .addCase(getOrdersByCustomer.rejected, (state, action) => {
+      console.log("getOrdersByCustomer rejected");
+    });
     // .addCase(editOrder.pending, (state) => {
     //   console.log("editOrder pending");
     // })

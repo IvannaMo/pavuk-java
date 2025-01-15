@@ -8,6 +8,7 @@ import formatDate from "../../utils/formatDate";
 import UserList from "./UserList";
 import ClothingItemList from "./ClothingItemList";
 import "./UserInfo.css";
+import OrderList from "./OrderList";
 
 
 function UserInfo() {
@@ -83,7 +84,7 @@ function UserInfo() {
       title: "Список замовлень",
       content: (
         <div className="h-full w-full">
-          {/* <OrderList /> */}
+          <OrderList />
         </div>
       ),
     }
@@ -94,7 +95,7 @@ function UserInfo() {
     navigate("/");
   };
 
-  const filteredItems = currentUser.role.name === "ROLE_ADMIN" ? items : items.filter((_, index: number) => index === 0);
+  const filteredItems = currentUser.role.name === "ROLE_ADMIN" ? items : items.filter((_, index: number) => index === 0 || index === 3 );
 
   return (
     <section className="user-info-section">
@@ -111,7 +112,7 @@ function UserInfo() {
             </button>
           </div>
         </div>
-        {items.map((item: any, index: number) => (
+        {filteredItems.map((item: any, index: number) => (
           <div key={index} className={`user-info ${selectedUserInfoTab === index ? "" : "hidden"} px-14 pt-11 pb-14`}>
             {item.content}
           </div>
