@@ -25,7 +25,7 @@ function ClothingItemsGalleryItem({ clothingItem }: { clothingItem: ClothingItem
 
   return (
     <div className="clothing-gallery-item-container max-w-72">
-      <img className="clothing-gallery-item-image w-max h-max min-w-64" src={`${import.meta.env.VITE_SERVER_PATH}${imageUrl}`} alt={clothingItem.name}/>
+      <img className="clothing-gallery-item-image w-max h-max min-w-64 aspect-square" src={`${import.meta.env.VITE_SERVER_PATH}${imageUrl}`} alt={clothingItem.name}/>
       <div className="px-5 pt-2 pb-4">
         <h4 className="clothing-gallery-item-heading text-2xl">{clothingItem.name}</h4>
         <p className="clothing-gallery-item-subtitle text-lg">{sliceClothingItemDescription(clothingItem.description)}</p>
