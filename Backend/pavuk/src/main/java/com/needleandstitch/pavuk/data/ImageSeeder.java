@@ -44,9 +44,14 @@ public class ImageSeeder implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
     	String tShirtUrl = "images/basic-clothing/t-shirt.svg";
+    	String sweaterUrl = "images/basic-clothing/sweater.svg";
     	
         if (imageRepository.findByName("t-shirt").isEmpty()) {
         	Image image = new Image("t-shirt", tShirtUrl, true);
+            imageRepository.save(image);
+        }
+        if (imageRepository.findByName("sweater").isEmpty()) {
+        	Image image = new Image("sweater", sweaterUrl, true);
             imageRepository.save(image);
         }
         

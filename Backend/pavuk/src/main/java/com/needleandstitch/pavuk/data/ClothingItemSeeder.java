@@ -68,22 +68,28 @@ public class ClothingItemSeeder implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Category tShirtCategory = categoryRepository.findByName("Футболки")
                 .orElseThrow(() -> new EntityNotFoundException("Category not found: Футболки"));
+        Category sweaterCategory = categoryRepository.findByName("Светри")
+                .orElseThrow(() -> new EntityNotFoundException("Category not found: Светри"));
 
         Image tShirtImage = imageRepository.findByName("t-shirt")
                 .orElseThrow(() -> new EntityNotFoundException("Image not found: t-shirt"));
-
         Set<Image> tShirtImages = new HashSet<>();
         tShirtImages.add(tShirtImage);
+        
+        Image sweaterImage = imageRepository.findByName("sweater")
+                .orElseThrow(() -> new EntityNotFoundException("Image not found: sweater"));
+        Set<Image> sweaterImages = new HashSet<>();
+        sweaterImages.add(sweaterImage);
 
         if (clothingItemRepository.findByName("Футболка").isEmpty()) {
         	ClothingItem tShirt = new ClothingItem("Футболка", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", BigDecimal.valueOf(500), tShirtImages, tShirtCategory);
         	tShirt.setStatus(Status.ACTIVE);
         	clothingItemRepository.save(tShirt);
         }
-        if (clothingItemRepository.findByName("Футболка 1").isEmpty()) {
-        	ClothingItem tShirt1 = new ClothingItem("Футболка 1", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", BigDecimal.valueOf(750), tShirtImages, tShirtCategory);
-        	tShirt1.setStatus(Status.ACTIVE);
-        	clothingItemRepository.save(tShirt1);
+        if (clothingItemRepository.findByName("Светр").isEmpty()) {
+        	ClothingItem sweater = new ClothingItem("Светр", "Lorem ipsum dolor sit amet, consectetur adipiscing elit.", BigDecimal.valueOf(750), sweaterImages, sweaterCategory);
+        	sweater.setStatus(Status.ACTIVE);
+        	clothingItemRepository.save(sweater);
         }
     }
 }

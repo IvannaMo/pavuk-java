@@ -47,5 +47,8 @@ public class CategorySeeder implements CommandLineRunner {
     	if (categoryRepository.findByName("Футболки").isEmpty()) {
     		categoryRepository.save(new Category("Футболки"));
     	}
+    	if (categoryRepository.findByName("Светри").isEmpty()) {
+    		categoryRepository.save(new Category("Светри"));
+    	}
     }
 }
