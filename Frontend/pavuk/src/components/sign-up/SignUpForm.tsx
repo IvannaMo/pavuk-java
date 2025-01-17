@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../state/store";
-import { signUpUser } from "../../state/users/users-slice";
+import { checkAuthentication, signUpUser } from "../../state/users/users-slice";
 import { hideSignInForm } from "../../state/ui/ui-slice";
 import yupSignUpSchema from "../../schemes/yup-sign-up-schema";
 import DatePicker from "../common/DatePicker";
@@ -33,6 +33,7 @@ function SignUpForm() {
     
     const resultAction = await dispatch(signUpUser(userData));
     if (signUpUser.fulfilled.match(resultAction)) {
+      await dispatch(checkAuthentication());
       navigate("/user-account");
     }
   };
