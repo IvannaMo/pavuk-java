@@ -24,16 +24,13 @@ The purpose of this project is to make it easier for clients and tailors to work
 - **Java**
 - **Spring Boot**
 - **Oracle Database**
-- **Spring Data JPA** for database interaction
-- **JWT Authentication** and **HTTPS certificates** for security
-- **Maven** for dependency management
+- **Hibernate** 
+- **JWT Authentication** and **SSL certificates** for security
 
 ### Frontend:
 
 - **React**
-- **Axios** for API calls
-- **Tailwind CSS**
-- **Yup** and **Formik** for reliable form creation
+- **TailwindCSS**
 
 ## Installation
 
@@ -94,12 +91,10 @@ The purpose of this project is to make it easier for clients and tailors to work
 
 ## Features
 
-- **User Authentication**: Secure login and registration with JWT.
-- **Browse Tailors**: View available tailors and choose whoever you like!
-- **Order Management**: Customers can book services, and tailors can manage their orders.
-- **Responsive Design**: Optimized for desktop and mobile users.
-- **Admin rights**: As an admin, you have tools to manage users and clothing items such as creating, updating and deleting them.
-- **Newsletter**: Subscribe to our newsletter to get fresh news about the updates and sales.
+- **User Security**: Secure login and registration with JWT.
+- **Personal Account**: Users can view their personal information, edit it and track their orders.
+- **Ordering**: Customers can choose from the available clothing templates, edit the template to their liking and place an order for an experienced tailor to pick up.
+- **Admin Rights**: As an admin, you have rights to view all users, orders and clothing items.
 
 ## Javadoc
 
