@@ -95,8 +95,8 @@ function UserInfo() {
   const signOutHandler = () => {
     dispatch(
       showModal({
-        title: "Вихід з акаунту",
-        message: "Ви справді хочете вийти з акаунту?",
+        title: "Вихід",
+        message: "Ви справді хочете вийти?",
         buttons: [
           {
             label: "Так",
