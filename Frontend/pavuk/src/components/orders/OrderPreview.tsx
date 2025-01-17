@@ -16,7 +16,6 @@ function OrderPreview() {
           <span className="order-preview-clothing-name ml-1">{order.clothingItem.name}</span> на суму 
           <span className="order-preview-clothing-price ml-1">{order.clothingItem.price}</span>
           <span className="order-preview-clothing-price-currency">₴</span> було успішно оформлене. 
-          Замовлення включає 1 одиницю товару. Ми зв'яжемося з вами найближчим часом для уточнення деталей оплати та доставки.
         </p>
       </div>
     </section>
