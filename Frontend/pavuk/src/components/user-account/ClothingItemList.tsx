@@ -6,6 +6,7 @@ import { sliceClothingItemName, sliceClothingItemDescription } from "../../utils
 import { Link, useNavigate } from "react-router-dom";
 import AdminClothingItemType from "../../types/admin-clothing-item-type";
 import "./ClothingItemList.css";
+import { showModal } from "../../state/ui/modal-slice";
 
 
 function ClothingItemList() {
@@ -28,16 +29,36 @@ function ClothingItemList() {
     navigate(`/edit-clothing-item/${clothingItemId}`, { state: { clothingItems } });
   };
 
+  // const removeClothingItemHandler = async (clothingItemId: string) => {
+  //   await dispatch(removeClothingItem(clothingItemId));
+  //   dispatch(getClothingItems());
+  // };
+
   const removeClothingItemHandler = async (clothingItemId: string) => {
-    await dispatch(removeClothingItem(clothingItemId));
+    await dispatch(
+      showModal({
+        title: "Видалення товара",
+        message: "Ви справді хочете видалити цей товар?",
+        buttons: [
+          {
+            label: "Так",
+            actionType: "removeClothingItem",
+            actionPayload: clothingItemId,
+          },
+          {
+            label: "Ні",
+            actionType: "cancel",
+          },
+        ],
+      })
+    )
     dispatch(getClothingItems());
   };
-
   return (
     <>
-      <Link className="clothing-list-create-clothing-link px-5 py-2 text-lg" to="/create-clothing-item">
+      {/* <Link className="clothing-list-create-clothing-link px-5 py-2 text-lg" to="/create-clothing-item">
         Створити товар
-      </Link>
+      </Link> */}
       <div className="clothing-list-container mt-5 max-h-96">
         <table className="clothing-list w-full">
           <thead className="clothing-list-thead">
@@ -67,9 +88,9 @@ function ClothingItemList() {
 
                   {clothingItem.status !== "REMOVED" && (
                     <>
-                      <td className="clothing-list-td pl-8">
+                      {/* <td className="clothing-list-td pl-8">
                         <button className="clothing-list-edit-product-button px-1 py-1 w-9 text-sm" onClick={() => editClothingItemHandler(clothingItem.id)}>✎</button>
-                      </td>
+                      </td> */}
                       <td className="clothing-list-td pl-1.5 pr-5">
                         <button className="clothing-list-remove-product-button px-1 py-1 w-9 text-sm" onClick={() => removeClothingItemHandler(clothingItem.id)}>✖</button>
                       </td>

@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import AdminUserType from "../../types/admin-user-type";
 import formatDate from "../../utils/formatDate";
 import "./UserList.css";
+import { showModal } from "../../state/ui/modal-slice";
 
 
 function UserList() {
@@ -25,12 +26,33 @@ function UserList() {
     }
   }, []);
 
-  const editUserHandler = async (userId: string) => {
-    navigate(`/edit-user/${userId}`, { state: { users } });
-  };
+  // const editUserHandler = async (userId: string) => {
+  //   navigate(`/edit-user/${userId}`, { state: { users } });
+  // };
+
+  // const removeUserHandler = async (userId: string) => {
+  //   await dispatch(removeUser(userId));
+  //   dispatch(getUsers());
+  // };
 
   const removeUserHandler = async (userId: string) => {
-    await dispatch(removeUser(userId));
+    await dispatch(
+      showModal({
+        title: "Видалення користувача",
+        message: "Ви справді хочете видалити користувача?",
+        buttons: [
+          {
+            label: "Так",
+            actionType: "removeUser",
+            actionPayload: userId,
+          },
+          {
+            label: "Ні",
+            actionType: "cancel",
+          },
+        ],
+      })
+    )
     dispatch(getUsers());
   };
 

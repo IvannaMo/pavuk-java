@@ -9,6 +9,8 @@ import UserList from "./UserList";
 import ClothingItemList from "./ClothingItemList";
 import "./UserInfo.css";
 import OrderList from "./OrderList";
+import { hideModal, showModal } from "../../state/ui/modal-slice";
+import { Modal } from "../common/Modal";
 
 
 function UserInfo() {
@@ -91,8 +93,22 @@ function UserInfo() {
   ];
 
   const signOutHandler = () => {
-    dispatch(signOutUser());
-    navigate("/");
+    dispatch(
+      showModal({
+        title: "Вихід з акаунту",
+        message: "Ви справді хочете вийти з акаунту?",
+        buttons: [
+          {
+            label: "Так",
+            actionType: "signOut", 
+          },
+          {
+            label: "Ні",
+            actionType: "cancel", 
+          },
+        ],
+      })
+    );
   };
 
   const filteredItems = currentUser.role.name === "ROLE_ADMIN" ? items : items.filter((_, index: number) => index === 0 || index === 3 );
@@ -100,6 +116,7 @@ function UserInfo() {
   return (
     <section className="user-info-section">
       <>
+      <Modal />
         <div className="user-info-tabs px-5 py-5">
           {filteredItems.map((item: any, index: number) => (
             <button key={index} className={`${selectedUserInfoTab === index ? "user-info-tab-selected" : "user-info-tab"} px-6 py-2 min-w-64 text-start text-xl`} onClick={() => setSelectedUserInfoTab(index)}>

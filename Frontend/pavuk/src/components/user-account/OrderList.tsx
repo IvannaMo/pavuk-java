@@ -109,7 +109,7 @@ function OrderList() {
                 <td className="order-list-td px-8 py-2 text-sm">
                   {order.orderDate ? formatDate(order.orderDate) : "N/A"}
                 </td>
-                {currentUser?.role?.name === "ROLE_ADMIN" && (
+                {/* {currentUser?.role?.name === "ROLE_ADMIN" && (
                   <>
                     <td className="order-list-td">
                       <button
@@ -128,7 +128,7 @@ function OrderList() {
                       </button>
                     </td>
                   </>
-                )}
+                )} */}
               </tr>
             );
           })}

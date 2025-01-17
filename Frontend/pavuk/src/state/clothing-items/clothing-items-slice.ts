@@ -1,12 +1,12 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AsyncThunkAction, ThunkDispatch, UnknownAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import ClothingItemType from "../../types/clothing-item-type";
+import { useDispatch } from "react-redux";
 
 
 const initialState: any = {
   clothingItems: []
 };
-
 
 export const getClothingItems = createAsyncThunk(
   "clothingItems/getClothingItems",
@@ -78,6 +78,7 @@ export const removeClothingItem = createAsyncThunk(
       
       if (response.status === 200) {
         return response.data as string;
+        
       }
     } 
     catch (error: any) {
@@ -143,3 +144,4 @@ const productsSlice = createSlice({
 }); 
 
 export default productsSlice.reducer;
+

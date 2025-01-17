@@ -6,6 +6,7 @@ import fabricsSliceReducer from "./fabrics/fabrics-slice";
 import ordersSliceReducer from "./orders/orders-slice";
 import customerSliceReducer from "./customers/customer-slice";
 import shippingInfoReducer from "./shipping-info/shipping-info-slice";
+import modalSliceReducer from "./ui/modal-slice";
 
 
 export const store = configureStore({
@@ -17,6 +18,7 @@ export const store = configureStore({
     orders: ordersSliceReducer,
     customers: customerSliceReducer,
     shippingInfo: shippingInfoReducer,
+    modal:modalSliceReducer,
   }
 });
 
