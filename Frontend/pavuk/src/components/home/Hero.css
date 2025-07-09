@@ -1,0 +1,49 @@
+.hero-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-img {
+    width: 100%;
+}
+
+.hero-content-container {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.hero-content-heading {
+    font-family: "Gilroy Bold";
+    color: white;
+}
+
+.hero-content-subtitle {
+    font-family: "Gilroy SemiBold";
+    color: #8490a8;
+}
+
+.hero-content-button {
+    display: inline-block;
+    background-color: #d15050;
+    border-radius: 18px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.hero-content-button:hover {
+    background-color: #de5f5f;
+}

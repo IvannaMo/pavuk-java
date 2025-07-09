@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { checkAuthentication } from "./state/users/users-slice";
+import { AppDispatch } from "./state/store";
+import Home from "./pages/home/Home";
+import ClothingItems from "./pages/clothing-items/ClothingItems";
+import SignUp from "./pages/sign-up/SignUp";
+import ProtectedAdminUserRoute from "./pages/user-account/ProtectedAdminUserRoute";
+import ProtectedUserRoute from "./pages/user-account/ProtectedUserRoute";
+import UserAccount from "./pages/user-account/UserAccount";
+import EditCurrentUser from "./pages/user-account/EditCurrentUser";
+import EditUser from "./pages/user-account/EditUser";
+import ClothingItemCustomization from "./pages/clothing-items/ClothingItemCustomization";
+import OrderConfirmation from "./pages/orders/OrderConfirmation";
+import CreateUser from "./pages/user-account/CreateUser";
+import CreateClothingItem from "./pages/user-account/CreateClothingItem";
+import EditClothingItem from "./pages/user-account/EditClothingItem";
+import "./App.css";
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const dispatch = useDispatch<AppDispatch>();
 
+  useEffect(() => {
+    dispatch(checkAuthentication());
+  }, [dispatch]);
+  
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/clothing-items" element={<ClothingItems />} />
+        <Route path="/clothing-items/customization/:clothingItemId" element={<ProtectedUserRoute><ClothingItemCustomization /></ProtectedUserRoute>} />
+        <Route path="/orders/confirmation/:orderId" element={<ProtectedUserRoute><OrderConfirmation /></ProtectedUserRoute>} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/user-account" element={<ProtectedUserRoute><UserAccount /></ProtectedUserRoute>} />
+        <Route path="/create-user" element={<ProtectedAdminUserRoute><CreateUser /></ProtectedAdminUserRoute>} />
+        <Route path="/edit-user" element={<ProtectedUserRoute><EditCurrentUser /></ProtectedUserRoute>} />
+        <Route path="/edit-user/:userId" element={<ProtectedAdminUserRoute><EditUser /></ProtectedAdminUserRoute>} />
+        <Route path="/create-clothing-item" element={<ProtectedAdminUserRoute><CreateClothingItem /></ProtectedAdminUserRoute>} />
+        <Route path="/edit-clothing-item/:clothingItemId" element={<ProtectedUserRoute><EditClothingItem /></ProtectedUserRoute>} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

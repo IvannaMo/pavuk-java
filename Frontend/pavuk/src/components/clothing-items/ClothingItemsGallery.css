@@ -1,0 +1,15 @@
+.clothing-gallery-section {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: 84px;
+    background-color: #F0F0F1;
+}
+
+.clothing-gallery-sort {
+    background-color: white;
+    outline: none;
+    border-radius: 11px;
+    font-family: "Gilroy SemiBold";
+    color: #7A7D7F;
+}

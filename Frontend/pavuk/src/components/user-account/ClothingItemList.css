@@ -1,0 +1,53 @@
+.clothing-list-container {
+    width: 100%;
+    background-color: white;
+    border-radius: 20px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.clothing-list-create-clothing-link, .clothing-list-edit-product-button, .clothing-list-remove-product-button {
+    background-color: #7A7D7F;
+}
+
+.clothing-list-create-clothing-link:hover, .clothing-list-edit-product-button:hover, .clothing-list-remove-product-button:hover {
+    background-color: #909295;
+}
+
+.clothing-list-create-clothing-link {
+    display: inline-block;
+    border-radius: 14px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.clothing-list-thead {
+    background-color: #A5A7AA;
+}
+
+.clothing-list-th {
+    font-family: "Gilroy Bold";
+    color: white;
+}
+
+.clothing-list-tr {
+    color: #7A7D7F;
+}
+
+.clothing-list-tr-removed {
+    color: #BCBEC1;
+}
+
+.clothing-list-td {
+    font-family: "Gilroy SemiBold";
+}
+
+.clothing-list-edit-product-button, .clothing-list-remove-product-button {
+    border-radius: 10px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}

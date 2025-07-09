@@ -1,0 +1,55 @@
+.edit-user-form-section {
+    display: flex;
+    justify-content: center;
+    margin-top: 84px;
+    background-color: #F0F0F1;
+}
+
+.edit-user-form {
+    position: relative;
+    background-color: white;
+    border-radius: 30px;
+}
+
+.edit-user-form-heading {
+    font-family: "Gilroy Bold";
+    color: #3C3D42;
+}
+
+.edit-user-form-label {
+    font-family: "Gilroy SemiBold";
+    color: #7A7D7F;
+}
+
+.edit-user-form-field {
+    display: block;
+    width: 100%;
+    background-color: #F0F0F1;
+    border-radius: 9px;
+    font-family: "Gilroy SemiBold";
+    color: #4c4d52;
+    outline: none;
+}
+
+.edit-user-form-field-error {
+    font-family: "Gilroy SemiBold";
+    color: #d15050;
+}
+
+.edit-user-form-button, .edit-user-form-button-disabled {
+    display: block;
+    background-color: #3C3D42;
+    border-radius: 14px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.edit-user-form-button:hover {
+    background-color: #4c4d52;
+}
+
+.edit-user-form-button-disabled {
+    color: #BCBEC1;
+}

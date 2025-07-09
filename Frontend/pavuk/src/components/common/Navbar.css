@@ -1,0 +1,57 @@
+.navbar-container {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    font-family: "Gilroy Bold";
+    color: #3C3D42;
+    z-index: 100;
+}
+
+.navbar-link-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+.navbar-link {
+    color: #7A7D7F;
+    transition: 0.2s;
+}
+
+.navbar-link:hover {
+    color: #3C3D42;
+}
+
+.navbar-list {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar-list-button {
+    display: inline-block;
+    background-color: #3C3D42;
+    border-radius: 14px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.navbar-list-button:hover {
+    background-color: #4c4d52;
+    color: white;
+}
+
+.navbar-list-order-button {
+    background-color: #d15050;
+}
+
+.navbar-list-order-button:hover {
+    background-color: #de5f5f;
+}
