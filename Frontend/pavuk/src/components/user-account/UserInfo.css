@@ -2,4 +2,86 @@
     display: flex;
     height: 100%;
     width: 100%;
+    margin-top: 84px;
+}
+
+.user-info-tabs {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    background-color: #7A7D7F;
+    font-family: "Gilroy SemiBold";
+    color: white;
+}
+
+.user-info-tab, .user-info-tabs-button {
+    transition: 0.2s;
+}
+  
+.user-info-tab-selected {
+    background-color: #A5A7AA;
+    border-radius: 14px;
+}
+
+.user-info-tabs-button {
+    color: #BCBEC1;
+}
+
+.user-info-tabs-button:hover {
+    color: white;
+}
+
+.user-info {
+    position: relative;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: #F0F0F1;
+}
+
+.user-info-general-info, .user-info-user-list, .user-info-product-list, .user-info-order-list {
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    border-radius: 30px;
+}
+
+.user-info-user-list {
+    overflow: hidden;
+}
+
+.user-info-general-info-photo {
+    border-width: 4.5px;
+    border-radius: 200px;
+    border-color: #A5A7AA;
+}
+
+.user-info-heading {
+    font-family: "Gilroy Bold";
+    color: #7A7D7F;
+}
+
+.user-info-data {
+    font-family: "Gilroy SemiBold";
+    color: #A5A7AA;
+}
+
+.user-info-additional-info {
+    font-family: "Gilroy SemiBold";
+    color: #A5A7AA;
+}
+
+.user-info-general-info-edit-user-link {
+    display: inline-block;
+    background-color: #7A7D7F;
+    border-radius: 14px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.user-info-general-info-edit-user-link:hover {
+    background-color: #909295;
 }

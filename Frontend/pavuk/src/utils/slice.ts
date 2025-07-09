@@ -1,16 +1,4 @@
-function sliceProductListName(description: string) {
-    const words = description.split(" ");
-
-    let maxLength = 2;
-    let result = words.slice(0, maxLength).join(" ");
-    if (words.length > maxLength) {
-        result = result + "...";
-    }
-
-    return result;
-};
-
-function sliceProductListDescription(description: string) {
+function sliceClothingItemName(description: string) {
     const words = description.split(" ");
 
     let maxLength = 3;
@@ -22,4 +10,16 @@ function sliceProductListDescription(description: string) {
     return result;
 };
 
-export { sliceProductListName, sliceProductListDescription };
+function sliceClothingItemDescription(description: string) {
+    const words = description.split(" ");
+
+    let maxLength = 10;
+    let result = words.slice(0, maxLength).join(" ");
+    if (words.length > maxLength) {
+        result = result + "...";
+    }
+
+    return result;
+};
+
+export { sliceClothingItemName, sliceClothingItemDescription };

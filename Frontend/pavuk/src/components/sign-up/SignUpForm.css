@@ -28,7 +28,7 @@
     background-color: #F0F0F1;
     border-radius: 9px;
     font-family: "Gilroy SemiBold";
-    color: #4D4E53;
+    color: #4c4d52;
     outline: none;
 }
 
@@ -48,7 +48,7 @@
 }
 
 .sign-up-form-button:hover {
-    background-color: #4D4E53;
+    background-color: #4c4d52;
 }
 
 .sign-up-form-button-disabled {

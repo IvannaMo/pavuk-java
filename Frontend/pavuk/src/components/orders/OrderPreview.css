@@ -1,0 +1,41 @@
+.order-preview-section {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    margin-top: 84px;
+    background-color: #F0F0F1;
+}
+
+.order-preview {
+    position: relative;
+    background-color: white;
+    height: fit-content;
+    border-radius: 30px;
+}
+
+.order-preview-heading {
+    font-family: "Gilroy Bold";
+    color: #3C3D42;
+}
+
+.order-preview-paragraph {
+    font-family: "Gilroy SemiBold";
+    color: #A5A7AA;
+}
+
+.order-preview-clothing-name {
+    font-family: "Gilroy Bold";
+    color: #3C3D42;
+}
+
+.order-preview-clothing-price, .order-preview-clothing-price-currency {
+    color: #79B076;
+}
+
+.order-preview-clothing-price {
+    font-family: "Gilroy Bold";
+}
+
+.order-preview-clothing-price-currency {
+    font-family: "ZonaPro Bold";
+}

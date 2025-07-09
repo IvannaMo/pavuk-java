@@ -6,7 +6,7 @@ import Footer from "../../components/common/Footer";
 function SignUp() {
   return (
     <>
-      <Navbar productsLink={true}></Navbar>
+      <Navbar userAccountLink={true} clothingItemsLink={true}></Navbar>
       <SignUpForm></SignUpForm>
       <Footer></Footer>
     </>

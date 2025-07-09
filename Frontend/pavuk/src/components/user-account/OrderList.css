@@ -1,0 +1,37 @@
+.order-list-container {
+    width: 100%;
+    background-color: white;
+    border-radius: 30px;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.order-list-thead {
+    background-color: #9da1a7;
+}
+
+.order-list-th {
+    font-family: "Gilroy Bold";
+    color: white;
+}
+
+.order-list-td {
+    font-family: "Gilroy SemiBold";
+    color: #7f7f8f;
+}
+
+.order-list-remove-order-button, .order-list-edit-order-button {
+    border-radius: 12px;
+    font-family: "Gilroy Bold";
+    color: white;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.order-list-edit-order-button, .order-list-remove-order-button {
+    background-color: #5f6269;
+}
+
+.order-list-edit-order-button:hover, .order-list-remove-order-button:hover {
+    background-color: #6b6d74;
+}

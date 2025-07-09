@@ -4,9 +4,14 @@ import { RootState } from "../../state/store";
 
 
 function ProtectedUserRoute({ children }: { children: JSX.Element }) {
-  const isAuthenticated = useSelector((state: RootState) => state.users.isAuthenticated);
+  const currentUser = useSelector((state: RootState) => state.users.currentUser);
+  const isLoading = useSelector((state: RootState) => state.users.currentUser === null);
 
-  return isAuthenticated ? children : <Navigate to="/sign-up" />;
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return currentUser ? children : <Navigate to="/sign-up" />;
 }
 
 export default ProtectedUserRoute;

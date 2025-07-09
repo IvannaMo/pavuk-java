@@ -2,28 +2,23 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../state/store";
 import { showSignInForm } from "../../state/ui/ui-slice";
-import { loadUser } from "../../state/users/users-slice";
-import { useEffect } from "react";
 import SignInForm from "../common/SignInForm";
 import "./Navbar.css";
 
 
 interface NavbarProps {
-  productsLink: boolean;
+  userAccountLink: boolean;
+  clothingItemsLink: boolean;
 }
 
-function Navbar({ productsLink = true }: NavbarProps) {
+function Navbar({ userAccountLink = true, clothingItemsLink = true }: NavbarProps) {
   const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(loadUser());
-  }, [dispatch]);
 
   const isSignInFormVisible = useSelector((state: RootState) => {
     return state.ui.isSignInFormVisible;
   });
 
-  const isAuthenticated = useSelector((state: RootState) => state.users.isAuthenticated);
+  const currentUser = useSelector((state: RootState) => state.users.currentUser);
 
   const signIn = () => {
     dispatch(showSignInForm());
@@ -42,17 +37,19 @@ function Navbar({ productsLink = true }: NavbarProps) {
           <ul className="navbar-list">
             <li className="mr-10 text-lg">UA</li>
             
-            {isAuthenticated ? (
-              <Link className="px-7 py-2 text-lg" to="/user-profile">
-                Особистий кабінет
-              </Link>
+            {currentUser ? (
+              userAccountLink && (
+                <Link className="px-7 py-2 text-lg" to="/user-account">
+                  Особистий кабінет
+                </Link>
+              )
             ) : (
               <button className="navbar-list-button px-7 py-2 text-lg" onClick={signIn}>
                 Вхід
               </button>
             )}
-            {productsLink && (
-              <Link className="navbar-list-button navbar-list-order-button ml-3 px-7 py-2 text-lg" to="/products">
+            {clothingItemsLink && (
+              <Link className="navbar-list-button navbar-list-order-button ml-3 px-7 py-2 text-lg" to="/clothing-items">
                 Cтворити замовлення
               </Link>
             )}
