@@ -1,0 +1,8 @@
+com.needleandstitch.pavuk
+com.needleandstitch.pavuk.config
+com.needleandstitch.pavuk.controller
+com.needleandstitch.pavuk.data
+com.needleandstitch.pavuk.model
+com.needleandstitch.pavuk.repository
+com.needleandstitch.pavuk.security
+com.needleandstitch.pavuk.service
